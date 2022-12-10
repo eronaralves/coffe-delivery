@@ -3,8 +3,12 @@ import { MapPin, ShoppingCart } from "phosphor-react";
 
 // Assets
 import Logo from '../../assets/logo.svg'
+import { IteminCarContext } from "../../context/ItemInCar";
+import { useContext } from "react";
 
 export function Header() {
+  const {itemsInCar} = useContext(IteminCarContext)
+
   return (
     <HeaderContainer>
       <a href="/">
@@ -20,7 +24,7 @@ export function Header() {
           <Button variant="yellow">
             <ShoppingCart size={22}/>
           </Button>
-          <span>3</span>
+          <span>{itemsInCar.length}</span>
         </BoxButtonCar>
       </ContainerButtons>
     </HeaderContainer>

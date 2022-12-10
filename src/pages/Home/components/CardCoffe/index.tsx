@@ -3,25 +3,49 @@ import { CardCoffeContainer, TypesCoffe, ContentAddInCar, BoxAddincar } from './
 
 // Assets
 import Coffe from '../../../../assets/expresso-tradicional.png'
+import { useContext, useState } from 'react';
+import { IteminCarContext } from '../../../../context/ItemInCar';
 
 
 interface CardCoffeType {
   type: string[];
   name: string;
   description: string;
+  image?: string,
   price: number
 }
 
 interface CardCoffeProps {
-  data: CardCoffeType
+  data: CardCoffeType;
+  addInCarList: (coffeAmount: number) => void
 }
 
-export function CardCoffe({data}: CardCoffeProps) {
+export function CardCoffe({data, addInCarList}: CardCoffeProps) {
+  const [coffeAmount, setCoffeAmount] = useState<number>(0)
+
+  function amountItem() {
+    if(coffeAmount < 5) {
+      setCoffeAmount(state => state +1)
+    }
+  }
+
+  function addItem() {
+    addInCarList(coffeAmount)
+
+    setCoffeAmount(0)
+  }
+
+  function removeItem() {
+    if(coffeAmount > 0) {
+      setCoffeAmount(state => state -1)
+    }
+  }
+
   return (
     <CardCoffeContainer>
-      <img src={Coffe}/>
+      <img src={data.image}/>
       <TypesCoffe>
-        {data.type.map(item => <span>{item}</span>)}
+        {data.type.map(item => <span key={item}>{item}</span>)}
       </TypesCoffe>
 
       <h3>{data.name}</h3>
@@ -32,11 +56,11 @@ export function CardCoffe({data}: CardCoffeProps) {
 
         <BoxAddincar>
           <button>
-            <Plus size={14} color="#8047F8"/>
-            1
-            <Minus size={14} color="#8047F8"/>
+            <Plus size={14} color="#8047F8" onClick={amountItem}/>
+            {coffeAmount}
+            <Minus size={14} color="#8047F8" onClick={removeItem}/>
           </button>
-          <span><ShoppingCartSimple size={18} color="#fff" weight='fill'/></span>
+          <span onClick={() => addItem()}><ShoppingCartSimple size={18} color="#fff" weight='fill'/></span>
         </BoxAddincar>
       </ContentAddInCar>
     </CardCoffeContainer>

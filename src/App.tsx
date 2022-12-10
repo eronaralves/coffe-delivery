@@ -4,15 +4,18 @@ import { defaultTheme } from "./styles/theme/default";
 import {BrowserRouter as RouterDom} from 'react-router-dom'
 import { Router } from "./Router";
 import { Default } from "./layouts/Default";
+import { IteminCarProvider } from "./context/ItemInCar";
 
 export function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle/>
-      <RouterDom>
-        <Router/>
-      </RouterDom>
+      <IteminCarProvider>
+        <RouterDom>
+          <Router/>
+        </RouterDom>
+      </IteminCarProvider>
     </ThemeProvider>
   )
 }

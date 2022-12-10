@@ -2,11 +2,14 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div`
   width: 100%;
+  padding-bottom: 9.8rem;
 `
 
 export const AboutContent = styled.section`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3rem;
 
   padding-block: 5.75rem;
   h2 {
@@ -27,6 +30,11 @@ export const AboutContent = styled.section`
     font-weight: 400;
     font-size: 1.25rem;
     line-height: 130%;
+  }
+
+  img {
+    width: 100%;
+    max-width: 476px;
   }
 `
 
@@ -85,7 +93,7 @@ export const ContentCoffes = styled.section`
 `
 
 export const Coffes = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.25rem 2rem;
 `

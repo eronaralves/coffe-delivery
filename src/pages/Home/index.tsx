@@ -4,14 +4,17 @@ import { HomeContainer, AboutContent, Quality, ContainerQualifys, ContentCoffes,
 // Assets
 import Coffe from '../../assets/coffe.png'
 import { CardCoffe } from './components/CardCoffe'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
+import { IteminCarContext } from '../../context/ItemInCar'
 
 interface Coffe {
+  id?: number,
   type: string[];
   name: string;
   description: string;
-  price: number
+  price: number;
+  amount?: number;
 };
 
 export function Home() {
@@ -40,11 +43,25 @@ export function Home() {
     }
   ]
 
+  const {setItemsInCar, itemsInCar} = useContext(IteminCarContext)
+
+  function addInCarList(coffe: any, amount: number) {
+    const isItemNew = itemsInCar.find(item => item.id === coffe.id)
+
+    if(!isItemNew) {
+      const CoffeWithAmount = {
+        ...coffe,
+        amount: amount
+      }
+  
+      setItemsInCar((state: Coffe[]) => [...state, CoffeWithAmount])
+      console.log(itemsInCar)
+    }
+  }
+
   async function fetchCoffes() {
     const response = await api.get('/coffes')
-
     setCoffes(response.data)
-
   }
 
   useEffect(() => {
@@ -75,7 +92,7 @@ export function Home() {
 
         <Coffes>
           {coffes.map(coffe => (
-            <CardCoffe data={coffe}/>
+            <CardCoffe key={coffe.id} data={coffe} addInCarList={(amount) => addInCarList(coffe, amount)}/>
           ))}
         </Coffes>
       </ContentCoffes>
