@@ -10,6 +10,7 @@
     "dev:server": "json-server server.json -p 3333 -w -d 500"
   },
   "dependencies": {
+    "@radix-ui/react-radio-group": "^1.1.0",
     "axios": "^1.2.1",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",

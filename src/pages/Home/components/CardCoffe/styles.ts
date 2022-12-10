@@ -92,7 +92,7 @@ export const BoxAddincar = styled.div`
     border: 0;
 
     color: ${props => props.theme["gray-800"]};
-    background-color: ${props => props.theme["gray-200"]};
+    background-color: ${props => props.theme["gray-300"]};
 
     svg {
       cursor: pointer;

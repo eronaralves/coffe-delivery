@@ -5,7 +5,7 @@ export const DefaultContainer = styled.div`
   padding-inline: 32px;
 `
 
-export const Content = styled.div`
+export const Content = styled.main`
   width: 100%;
   max-width: 74rem;
   margin: 0 auto;

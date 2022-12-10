@@ -32,9 +32,9 @@ export function CardCoffe({data}: CardCoffeProps) {
 
         <BoxAddincar>
           <button>
-            <Plus size={14}/>
+            <Plus size={14} color="#8047F8"/>
             1
-            <Minus size={14}/>
+            <Minus size={14} color="#8047F8"/>
           </button>
           <span><ShoppingCartSimple size={18} color="#fff" weight='fill'/></span>
         </BoxAddincar>
