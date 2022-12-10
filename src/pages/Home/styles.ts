@@ -28,7 +28,6 @@ export const AboutContent = styled.section`
     font-size: 1.25rem;
     line-height: 130%;
   }
-
 `
 
 export const ContainerQualifys = styled.div`
@@ -72,4 +71,21 @@ export const Quality = styled.div<QualityType>`
     font-weight: 400;
     color: ${props => props.theme["gray-600"]};
   }
+`
+
+export const ContentCoffes = styled.section`
+
+
+  h2 {
+    font-family: 'Baloo 2';
+    font-weight: 800;
+    font-size: 2rem;
+    margin-top: 2rem;
+  }
+`
+
+export const Coffes = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem 2rem;
 `

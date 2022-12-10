@@ -1,10 +1,21 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
-import { HomeContainer, AboutContent, Quality, ContainerQualifys} from './styles'
+import { HomeContainer, AboutContent, Quality, ContainerQualifys, ContentCoffes, Coffes} from './styles'
 
 // Assets
 import Coffe from '../../assets/coffe.png'
+import { CardCoffe } from './components/CardCoffe'
+import { useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
+
+interface Coffe {
+  type: string[];
+  name: string;
+  description: string;
+  price: number
+};
 
 export function Home() {
+  const [coffes, setCoffes] = useState<Coffe[]>([])
   const qualifys = [
     {
       icon: <ShoppingCart size={16} weight="fill"/>,
@@ -29,6 +40,17 @@ export function Home() {
     }
   ]
 
+  async function fetchCoffes() {
+    const response = await api.get('/coffes')
+
+    setCoffes(response.data)
+
+  }
+
+  useEffect(() => {
+    fetchCoffes()
+  }, [])
+
   return (
     <HomeContainer>
       <AboutContent>
@@ -37,8 +59,8 @@ export function Home() {
           <p>Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora</p>
           
           <ContainerQualifys>
-            {qualifys.map(item => (
-              <Quality variant={item.variant}>
+            {qualifys.map((item, index) => (
+              <Quality key={index} variant={item.variant}>
                 <span>{item.icon}</span>
                 <p>{item.name}</p>
               </Quality>
@@ -47,6 +69,16 @@ export function Home() {
         </div>
         <img src={Coffe}/>
       </AboutContent>
+
+      <ContentCoffes>
+        <h2>Nossos cafés</h2>
+
+        <Coffes>
+          {coffes.map(coffe => (
+            <CardCoffe data={coffe}/>
+          ))}
+        </Coffes>
+      </ContentCoffes>
     </HomeContainer>
   )
 }
