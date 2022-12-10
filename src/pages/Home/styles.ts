@@ -49,7 +49,7 @@ export const ContainerQualifys = styled.div`
   margin-top: 4.125rem;
 `
 
-const Background = {
+export const Background = {
   yellow700: 'yellow-700',
   yellow500: 'yellow-500',
   purple500: 'purple-500',

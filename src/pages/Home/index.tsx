@@ -1,5 +1,5 @@
-import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
-import { HomeContainer, AboutContent, Quality, ContainerQualifys, ContentCoffes, Coffes} from './styles'
+import { Coffee, IconProps, Package, ShoppingCart, Timer } from 'phosphor-react'
+import { HomeContainer, AboutContent, Quality, ContainerQualifys, ContentCoffes, Coffes, Background} from './styles'
 
 // Assets
 import Coffe from '../../assets/coffe.png'
@@ -41,7 +41,7 @@ export function Home() {
       name: 'O café chega fresquinho até você',
       variant: 'purple500'
     }
-  ]
+  ] as const
 
   const {setItemsInCar, itemsInCar} = useContext(IteminCarContext)
 
