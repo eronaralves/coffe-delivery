@@ -1,10 +1,15 @@
 import { Route, Routes } from "react-router-dom";
+import { Default } from "./layouts/Default";
+import { Home } from "./pages/Home";
+import { Purchase } from "./pages/Purchase";
 
 export function Router() {
   return (
     <Routes>
-      <Route/>
-      <Route/>
+      <Route path="/" element={<Default/>}>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/purchase" element={<Purchase/>}/>
+      </Route>
     </Routes>
   )
 }

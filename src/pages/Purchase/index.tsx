@@ -1,5 +1,7 @@
 export function Purchase() {
   return (
-    <div></div>
+    <div>
+      PURCHASEEEE
+    </div>
   )
 }
