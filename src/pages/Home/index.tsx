@@ -15,10 +15,56 @@ interface Coffe {
   description: string;
   price: number;
   amount?: number;
+  image: string;
 };
 
 export function Home() {
-  const [coffes, setCoffes] = useState<Coffe[]>([])
+  const [coffes, setCoffes] = useState<Coffe[]>([
+      {
+        id: 1,
+        image: "./src/assets/expresso-tradicional.png",
+        type: [
+          "Tradicional"
+        ],
+        name: "Expresso Tradicional",
+        description: "O tradicional café feito com água quente e grãos moídos",
+        price: 10, 
+        amount: 0
+      },
+      {
+        id: 2,
+        image: "./src/assets/expresso-americano.png",
+        type: [
+          "Tradicional"
+        ],
+        name: "Expresso Americano",
+        description: "Expresso diluído, menos intenso que o tradicional",
+        price: 9,
+        amount: 0
+      },
+      {
+        id: 3,
+        image: "./src/assets/expresso-cremoso.png",
+        type: [
+          "Tradicional"
+        ],
+        name: "Expresso Cremoso",
+        description: "Café expresso tradicional com espuma cremosa",
+        price: 10,
+        amount: 0
+      },
+      {
+        "id": 4,
+        image: "./src/assets/expresso-gelado.png",
+        type: [
+          "Tradicional",
+          "Gelado"
+        ],
+        name: "Expresso Gelado",
+        description: "Bebida preparada com café expresso e cubos de gelo",
+        price: 10,
+        amount: 0
+      }])
   const qualifys = [
     {
       icon: <ShoppingCart size={16} weight="fill"/>,
@@ -59,14 +105,14 @@ export function Home() {
     }
   }
 
-  async function fetchCoffes() {
-    const response = await api.get('/coffes')
-    setCoffes(response.data)
-  }
+  // async function fetchCoffes() {
+  //   const response = await api.get('/coffes')
+  //   setCoffes(response.data)
+  // }
 
-  useEffect(() => {
-    fetchCoffes()
-  }, [])
+  // useEffect(() => {
+  //   fetchCoffes()
+  // }, [])
 
   return (
     <HomeContainer>
