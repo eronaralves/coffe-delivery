@@ -1,11 +1,13 @@
 import { createContext, ReactNode, useState } from "react";
 
 interface ItemsinCar {
-  id: number
+  id: number,
   type: string[];
   name: string;
   description: string;
-  price: number
+  price: number;
+  amount: number;
+  image: string;
 };
 
 interface ItemInCarType {
