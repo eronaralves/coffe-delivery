@@ -11,7 +11,7 @@ interface CardCoffeType {
   type: string[];
   name: string;
   description: string;
-  image?: string,
+  image: string,
   price: number
 }
 
@@ -31,7 +31,7 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
 
   function addItem() {
     addInCarList(coffeAmount)
-
+    
     setCoffeAmount(0)
   }
 

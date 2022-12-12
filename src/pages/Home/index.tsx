@@ -9,12 +9,12 @@ import { api } from '../../lib/axios'
 import { IteminCarContext } from '../../context/ItemInCar'
 
 interface Coffe {
-  id?: number,
+  id: number,
   type: string[];
   name: string;
   description: string;
   price: number;
-  amount?: number;
+  amount: number;
   image: string;
 };
 
@@ -47,16 +47,30 @@ export function Home() {
   const {setItemsInCar, itemsInCar} = useContext(IteminCarContext)
 
   function addInCarList(coffe: any, amount: number) {
-    const isItemNew = itemsInCar.find(item => item.id === coffe.id)
+    const isItemNew = itemsInCar.find(item => item?.id === coffe.id)
+    
 
-    if(!isItemNew) {
+    if(isItemNew === undefined) {
+
       const CoffeWithAmount = {
         ...coffe,
         amount: amount
       }
   
       setItemsInCar((state: Coffe[]) => [...state, CoffeWithAmount])
-      console.log(itemsInCar)
+    } else {
+      let filtro = itemsInCar.filter(item => item.id === coffe.id)
+
+      filtro[0] = {
+        ...filtro[0],
+        amount: amount + filtro[0].amount
+      }
+
+
+      const filter = itemsInCar.filter(item => item.id !== filtro[0].id)
+
+      console.log(filter)
+
     }
   }
 
