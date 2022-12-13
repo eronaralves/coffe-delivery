@@ -46,33 +46,74 @@ export function Home() {
 
   const {setItemsInCar, itemsInCar} = useContext(IteminCarContext)
 
-  function addInCarList(coffe: any, amount: number) {
-    const isItemNew = itemsInCar.find(item => item?.id === coffe.id)
-    
+  async function addInCarList(data: Coffe, amount: number) {
+    try {
+      const shopCart = [...itemsInCar];
 
-    if(isItemNew === undefined) {
-
-      const CoffeWithAmount = {
-        ...coffe,
-        amount: amount
-      }
+      let coffe = shopCart.find(coffe => coffe.id === data.id);
   
-      setItemsInCar((state: Coffe[]) => [...state, CoffeWithAmount])
-    } else {
-      let filtro = itemsInCar.filter(item => item.id === coffe.id)
+      if(coffe) {
+        const newAmount = coffe.amount + amount;
+  
+        await api.put(`/coffesInCar/${coffe.id}`, {
+          ...coffe,
+          amount: newAmount
+        });
 
-      filtro[0] = {
-        ...filtro[0],
-        amount: amount + filtro[0].amount
+        coffe.amount = newAmount;
+  
+      } else {
+        const newCoffe = {
+          ...data,
+          amount,
+        }
+        
+        await api.post('/coffesInCar', newCoffe);
+        shopCart.push(newCoffe);
       }
 
+      setItemsInCar(shopCart);
 
-      const filter = itemsInCar.filter(item => item.id !== filtro[0].id)
-
-      console.log(filter)
-
+    } catch (error: any) {
+      console.log("error", error.message);
     }
-  }
+  
+
+    // Eronar
+    // const isItemNew = itemsInCar.find(item => item?.id === coffe.id)
+    // console.log(isItemNew)
+
+    // if(!isItemNew) {
+    //   const CoffeWithAmount = {
+    //     ...coffe,
+    //     amount: coffe.amount + amount
+    //   }
+
+    //   api.post('/coffesInCar', CoffeWithAmount)
+      
+    //   return setItemsInCar((state: Coffe[]) => [...state, CoffeWithAmount])
+    // } else {
+    //   const cont = {
+    //     ...coffe,
+    //     amount: isItemNew.amount + amount
+    //   }
+
+    //   const itemsCar = itemsInCar.map(item => {
+    //     console.log(item)
+    //     if(item.id === cont.id) {
+    //       return {
+    //         ...item,
+    //         amount: isItemNew.amount + amount
+    //       }
+    //   }
+
+    //     return item
+    //   })
+
+    //   setItemsInCar(itemsCar)
+    //   api.patch('/coffesInCar', itemsCar)
+    // }
+ }
 
   async function fetchCoffes() {
     const response = await api.get('/coffes')

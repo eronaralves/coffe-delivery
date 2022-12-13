@@ -1,12 +1,17 @@
 import { CurrencyDollar, MapPinLine } from "phosphor-react";
+import { useContext } from "react";
+import { IteminCarContext } from "../../context/ItemInCar";
 
 import { Button } from "./components/Button";
 import { CoffeSelect } from "./components/CoffeSelect";
 import { PurchaseContainer, ContentInfoLocation, Heading, ContentInputs, Input, BoxDefault, ContainerButtons, ContainerCoffesSelect,BoxCardCoffeSelect, BoxPrice } from "./styles";
 
 export function Purchase() {
+  const {itemsInCar} = useContext(IteminCarContext)
+  console.log(itemsInCar)
   return (
     <PurchaseContainer>
+
       <form>
         <div>
           <h3>Complete seu pedido</h3>
@@ -74,6 +79,8 @@ export function Purchase() {
           </div>
         </ContainerCoffesSelect>
       </form>
+      
+      {itemsInCar.map(item => <h1>{item.name} {item.amount}</h1>)}
     </PurchaseContainer>
   )
 }

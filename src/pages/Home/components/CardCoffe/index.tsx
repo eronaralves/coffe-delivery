@@ -2,9 +2,7 @@ import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 import { CardCoffeContainer, TypesCoffe, ContentAddInCar, BoxAddincar } from './styles'
 
 // Assets
-import Coffe from '../../../../assets/expresso-tradicional.png'
-import { useContext, useState } from 'react';
-import { IteminCarContext } from '../../../../context/ItemInCar';
+import { useState } from 'react';
 
 
 interface CardCoffeType {
@@ -21,7 +19,7 @@ interface CardCoffeProps {
 }
 
 export function CardCoffe({data, addInCarList}: CardCoffeProps) {
-  const [coffeAmount, setCoffeAmount] = useState<number>(0)
+  const [coffeAmount, setCoffeAmount] = useState(0)
 
   function amountItem() {
     if(coffeAmount < 5) {
