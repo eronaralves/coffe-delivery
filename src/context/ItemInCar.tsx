@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../lib/axios";
 
-interface ItemsinCar {
+export interface ItemsinCar {
   id: number,
   type: string[];
   name: string;
@@ -9,6 +9,7 @@ interface ItemsinCar {
   price: number;
   amount: number;
   image: string;
+  currentPrice: number
 };
 
 interface ItemInCarType {
@@ -27,7 +28,6 @@ export function IteminCarProvider({children}: IteminCarProviderProps) {
 
   async function fecthItemsInCar() {
     const response = await api.get('/coffesInCar')
-
     setItemsInCar(response.data)
   }
   

@@ -5,12 +5,12 @@ import { CardCoffeContainer, TypesCoffe, ContentAddInCar, BoxAddincar } from './
 import { useState } from 'react';
 
 
-interface CardCoffeType {
+export interface CardCoffeType {
   type: string[];
   name: string;
   description: string;
   image: string,
-  price: number
+  price: number;
 }
 
 interface CardCoffeProps {

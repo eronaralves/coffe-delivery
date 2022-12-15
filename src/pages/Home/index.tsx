@@ -7,6 +7,7 @@ import { CardCoffe } from './components/CardCoffe'
 import { useContext, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 import { IteminCarContext } from '../../context/ItemInCar'
+import { formToJSON } from 'axios'
 
 interface Coffe {
   id: number,
@@ -16,10 +17,12 @@ interface Coffe {
   price: number;
   amount: number;
   image: string;
+  currentPrice?: number;
 };
 
 export function Home() {
   const [coffes, setCoffes] = useState<Coffe[]>([])
+  const [locatio, setLocation] = useState('')
   const qualifys = [
     {
       icon: <ShoppingCart size={16} weight="fill"/>,
@@ -49,23 +52,26 @@ export function Home() {
   async function addInCarList(data: Coffe, amount: number) {
     try {
       const shopCart = [...itemsInCar];
-
+      
       let coffe = shopCart.find(coffe => coffe.id === data.id);
-  
       if(coffe) {
         const newAmount = coffe.amount + amount;
-  
+        const newPrice = coffe.currentPrice + (amount * data.price)
+
         await api.put(`/coffesInCar/${coffe.id}`, {
           ...coffe,
+          currentPrice: newPrice,
           amount: newAmount
         });
 
         coffe.amount = newAmount;
-  
+        coffe.price = newPrice
       } else {
+        
         const newCoffe = {
           ...data,
-          amount,
+          currentPrice: data.price * amount,
+          amount
         }
         
         await api.post('/coffesInCar', newCoffe);
@@ -73,46 +79,11 @@ export function Home() {
       }
 
       setItemsInCar(shopCart);
+      
 
     } catch (error: any) {
       console.log("error", error.message);
     }
-  
-
-    // Eronar
-    // const isItemNew = itemsInCar.find(item => item?.id === coffe.id)
-    // console.log(isItemNew)
-
-    // if(!isItemNew) {
-    //   const CoffeWithAmount = {
-    //     ...coffe,
-    //     amount: coffe.amount + amount
-    //   }
-
-    //   api.post('/coffesInCar', CoffeWithAmount)
-      
-    //   return setItemsInCar((state: Coffe[]) => [...state, CoffeWithAmount])
-    // } else {
-    //   const cont = {
-    //     ...coffe,
-    //     amount: isItemNew.amount + amount
-    //   }
-
-    //   const itemsCar = itemsInCar.map(item => {
-    //     console.log(item)
-    //     if(item.id === cont.id) {
-    //       return {
-    //         ...item,
-    //         amount: isItemNew.amount + amount
-    //       }
-    //   }
-
-    //     return item
-    //   })
-
-    //   setItemsInCar(itemsCar)
-    //   api.patch('/coffesInCar', itemsCar)
-    // }
  }
 
   async function fetchCoffes() {
@@ -123,11 +94,13 @@ export function Home() {
   useEffect(() => {
     fetchCoffes()
   }, [])
+  
 
   return (
     <HomeContainer>
       <AboutContent>
         <div>
+          
           <h2>Encontre o café perfeito para qualquer hora do dia</h2>
           <p>Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora</p>
           

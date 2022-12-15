@@ -1,6 +1,7 @@
 import { CurrencyDollar, MapPinLine } from "phosphor-react";
-import { useContext } from "react";
-import { IteminCarContext } from "../../context/ItemInCar";
+import { useContext, useEffect, useState } from "react";
+import { IteminCarContext, ItemsinCar } from "../../context/ItemInCar";
+import { formatterPrice } from "../../ultis/formatter";
 
 import { Button } from "./components/Button";
 import { CoffeSelect } from "./components/CoffeSelect";
@@ -8,10 +9,26 @@ import { PurchaseContainer, ContentInfoLocation, Heading, ContentInputs, Input, 
 
 export function Purchase() {
   const {itemsInCar} = useContext(IteminCarContext)
-  console.log(itemsInCar)
+  
+  
+  const summary = itemsInCar.reduce((acc, coffe) => {
+    acc.totalItems += coffe.currentPrice
+    acc.entrega += coffe.amount
+    if(acc.entrega === 0) {
+      acc.entrega = 0
+    } else {
+      acc.entrega = 3
+    }
+    acc.total = (acc.totalItems + acc.entrega)
+    return acc;
+  }, {
+    totalItems: 0,
+    entrega: 0,
+    total: 0
+  })
+
   return (
     <PurchaseContainer>
-
       <form>
         <div>
           <h3>Complete seu pedido</h3>
@@ -57,30 +74,29 @@ export function Purchase() {
           <h3>Cafés selecionados</h3>
           <div>
             <BoxCardCoffeSelect>
-              <CoffeSelect/>
-              <CoffeSelect/>
+              {itemsInCar.map(coffe => (
+                <CoffeSelect key={coffe.id} data={coffe}/>
+              ))}
             </BoxCardCoffeSelect>
 
             <BoxPrice>
               <div>
                 <span>Total de itens</span>
-                <span>R$ 29,70</span>
+                <span>{formatterPrice.format(summary.totalItems)}</span>
               </div>
               <div>
                 <span>Entrega</span>
-                <span>R$ 3,50</span>
+                <span>{formatterPrice.format(summary.entrega)}</span>
               </div>
               <div>
                 <strong>Total</strong>
-                <strong>R$ 33,20</strong>
+                <strong>{formatterPrice.format(summary.total)}</strong>
               </div>
             </BoxPrice>
             <button>confirmar pedido</button>
           </div>
         </ContainerCoffesSelect>
       </form>
-      
-      {itemsInCar.map(item => <h1>{item.name} {item.amount}</h1>)}
     </PurchaseContainer>
   )
 }
