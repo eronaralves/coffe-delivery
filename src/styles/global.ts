@@ -7,6 +7,11 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  input:focus {
+    outline: none;
+    border: 1px solid #C47F17;
+  }
+
   body {
     font-family: 'Roboto', sans-serif;
     color: ${props => props.theme["gray-700"]};

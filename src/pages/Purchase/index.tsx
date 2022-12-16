@@ -1,14 +1,41 @@
-import { CurrencyDollar, MapPinLine } from "phosphor-react";
-import { useContext, useEffect, useState } from "react";
-import { IteminCarContext, ItemsinCar } from "../../context/ItemInCar";
+import { useContext } from "react";
+import { CurrencyDollar, MapPinLine, Money, Bank, CreditCard } from "phosphor-react";
+
+import { IteminCarContext } from "../../context/ItemInCar";
 import { formatterPrice } from "../../ultis/formatter";
 
-import { Button } from "./components/Button";
+// form
+import * as z from 'zod'
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod'
+
+ // Styles
+import { PurchaseContainer, ContentInfoLocation, Heading, ContentInputs, Input, ReactInputmask, BoxDefault, ContainerButtons, Button, ContainerCoffesSelect, BoxCardCoffeSelect, BoxPrice,  } from "./styles";
+
+// Components
 import { CoffeSelect } from "./components/CoffeSelect";
-import { PurchaseContainer, ContentInfoLocation, Heading, ContentInputs, Input, BoxDefault, ContainerButtons, ContainerCoffesSelect,BoxCardCoffeSelect, BoxPrice } from "./styles";
+
+const formSchema = z.object({
+  city: z.string(),
+  abbreviation: z.string().max(2, ''),
+  district: z.string(),
+  number: z.number(),
+  complement: z.string(),
+  contact: z.string(),
+  road: z.string(),
+  type: z.enum(['credit', 'debit', 'money'])
+})
+
+type FormInputs = z.infer<typeof formSchema>
 
 export function Purchase() {
   const {itemsInCar} = useContext(IteminCarContext)
+  const { control ,register, handleSubmit} = useForm<FormInputs>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      type: 'credit'
+    }
+  })
   
   
   const summary = itemsInCar.reduce((acc, coffe) => {
@@ -27,9 +54,15 @@ export function Purchase() {
     total: 0
   })
 
+  function handleCompletOrder(data: FormInputs)
+  { 
+   
+    console.log(data)
+  }
+
   return (
     <PurchaseContainer>
-      <form>
+      <form onSubmit={handleSubmit(handleCompletOrder)}>
         <div>
           <h3>Complete seu pedido</h3>
           <ContentInfoLocation>
@@ -42,16 +75,16 @@ export function Purchase() {
             </Heading>
 
             <ContentInputs>
-              <Input type="text" placeholder="99999-999"/>
-              <Input type="text" placeholder="Rua João Daniel Martinelli"/>
+              <Input type="text" placeholder="99 99999-9999" {...register('contact', {valueAsNumber: true})}/>
+              <Input type="text" placeholder="Rua João Daniel Martinelli" {...register('road')}/>
               <div>
-                <Input type="number" placeholder="100"/>
-                <Input type="text" placeholder="Complemento"/>
+                <Input placeholder="100" {...register('number', {valueAsNumber: true})}/>
+                <Input type="text" placeholder="Complemento" {...register('complement')}/>
               </div>
               <div>
-                <Input type="text" placeholder="Farrapos"/>
-                <Input type="text" placeholder="Rio de Janeiro"/>
-                <Input type="text" placeholder="RJ" maxLength={2}/>
+                <Input type="text" placeholder="Farrapos" {...register('district')}/>
+                <Input type="text" placeholder="Rio de Janeiro" {...register('city')}/>
+                <Input type="text" placeholder="RJ" maxLength={2} {...register('abbreviation')} />
               </div>
             </ContentInputs>
           </ContentInfoLocation>
@@ -63,11 +96,29 @@ export function Purchase() {
                 <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
               </div>
             </Heading>
-            <ContainerButtons>
-              <Button icon="credit" label="Cartão de crédito"/>
-              <Button icon="debit" label="cartão de débito"/>
-              <Button icon="money" label="dinheiro "/>
-            </ContainerButtons>
+            <Controller
+              control={control}
+              name="type"
+              render={({field}) => {
+                return (
+                  <ContainerButtons onValueChange={field.onChange} value={field.value}>
+                    <Button value="credit">
+                      <CreditCard color="#8047F8"/>
+                      <span>Cartão de crédito</span>
+                    </Button>
+                    <Button value="debit">
+                      <Bank color="#8047F8"/>
+                      <span>cartão de débito</span>
+                    </Button>
+                    <Button value="money">
+                      <Money color="#8047F8"/>
+                      <span>dinheiro</span>
+                    </Button>
+                  </ContainerButtons>
+                )
+              }}
+            />
+
           </BoxDefault>
         </div>
         <ContainerCoffesSelect>
@@ -93,7 +144,7 @@ export function Purchase() {
                 <strong>{formatterPrice.format(summary.total)}</strong>
               </div>
             </BoxPrice>
-            <button>confirmar pedido</button>
+            <button type="submit">confirmar pedido</button>
           </div>
         </ContainerCoffesSelect>
       </form>

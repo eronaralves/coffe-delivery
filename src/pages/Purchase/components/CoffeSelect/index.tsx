@@ -78,6 +78,14 @@ export function CoffeSelect({data}: CoffeSelectProps) {
     }
   }
 
+  async function handleDeleteCoffe() {
+    const shopCard = [...itemsInCar]
+
+    const deleteCoffe = shopCard.filter(coffe => coffe.id !== data.id)
+    await api.delete(`/coffesInCar/${data.id}`)
+
+    setItemsInCar(deleteCoffe)
+  }
 
   return (
     <CoffeSelectContainer>
@@ -91,14 +99,14 @@ export function CoffeSelect({data}: CoffeSelectProps) {
               {itemsInpurchase.amount}
               <Plus size={14} color="#8047F8" onClick={() => handleAddAmount()}/>
             </button>
-            <button>
+            <button type="button" onClick={handleDeleteCoffe}>
               <Trash size={16} color="#8047F8"/>
               Remover
             </button>
           </DescriptionSelect>
         </div>
       </div>
-      <span>{formatterPrice.format(itemsInpurchase.currentPrice)}</span>
+      <span>{formatterPrice.format(itemsInpurchase.price)}</span>
     </CoffeSelectContainer>
   ) 
 }

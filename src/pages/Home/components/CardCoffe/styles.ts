@@ -101,11 +101,14 @@ export const BoxAddincar = styled.div`
 
   span {
     padding: 0.5rem;
-    background-color: ${props => props.theme["purple-700"]};
     line-height: 0;
     border-radius: 6px;
-
+    transition: background-color 0.2s;
     cursor: pointer;
+    background-color: ${props => props.theme["purple-700"]};
+  }
 
+  span:hover {
+    background-color: ${props => props.theme["purple-500"]};
   }
 `

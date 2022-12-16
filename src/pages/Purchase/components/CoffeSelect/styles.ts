@@ -7,6 +7,9 @@ export const CoffeSelectContainer = styled.div`
   justify-content: space-between;
   gap: 1.25;
 
+  border-bottom: 1px solid #E6E5E5;
+  padding-bottom: 2rem;
+
   img {
     width: 64px;
     height: 64px;
@@ -61,11 +64,18 @@ export const DescriptionSelect = styled.div`
     gap: 0.25rem;
     padding: 0.5rem;
     border: 1px solid transparent;
+    border-radius: 6px;
     
     font-size: 0.75rem;
     text-transform: uppercase;
+    cursor: pointer;
 
+    transition: background-color 0.2s;
     color: ${props => props.theme["gray-600"]};
     background-color: ${props => props.theme["gray-300"]};
+  }
+
+  & > button:nth-child(2):hover {
+    background-color: ${props => props.theme["gray-400"]};
   }
 `

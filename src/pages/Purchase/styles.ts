@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import * as RadioGroup from '@radix-ui/react-radio-group';
+import InputMask from 'react-input-mask'
+import { InputHTMLAttributes } from "react";
 
 export const PurchaseContainer = styled.main`
   form {
@@ -80,16 +82,61 @@ export const ContentInputs = styled.div`
 export const Input = styled.input`
   padding: 0.75rem;
   border: 1px solid ${props => props.theme["gray-300"]};
-
+  border-radius: 4px;
   font-weight: 400;
   font-size: 0.875rem;
 
   background-color:  ${props => props.theme["gray-200"]};
 `
 
+export const ReactInputmask = styled(InputMask)`
+padding: 0.75rem;
+border: 1px solid ${props => props.theme["gray-300"]};
+border-radius: 4px;
+font-weight: 400;
+font-size: 0.875rem;
+
+background-color:  ${props => props.theme["gray-200"]};
+`
+
 export const ContainerButtons = styled(RadioGroup.Root)`
   display: flex;
   gap: 0.75rem;
+`
+
+
+export const Button = styled(RadioGroup.Item)`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  padding-block: 1rem;
+  padding-left: 1rem;
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  border: 1px solid transparent;
+  border-radius: 6px;
+
+  background: ${props => props.theme["gray-300"]};
+  
+  span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: ${props => props.theme["gray-600"]};
+  }
+
+  &:hover {
+    background: ${props => props.theme["gray-400"]};
+  }
+
+  &[data-state='checked'] {
+    background: ${props => props.theme["purple-100"]};
+    border: 1px solid ${props => props.theme["purple-500"]};
+  }
+
 `
 
 export const ContainerCoffesSelect = styled.div`
@@ -110,9 +157,15 @@ export const ContainerCoffesSelect = styled.div`
   
       margin-top: 1.5rem;
       padding: 0.75rem 0.5rem;
+      transition: background-color 0.2s;
+      cursor: pointer;
   
       color: ${props => props.theme.white};
       background-color: ${props => props.theme["yellow-500"]} ;
+    }
+
+    & > button:hover {
+      background-color: ${props => props.theme["yellow-700"]} ;
     }
   }
 
@@ -122,6 +175,10 @@ export const BoxCardCoffeSelect = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+
+  & > span {
+    
+  }
 `
 
 export const BoxPrice = styled.div`
