@@ -1,4 +1,4 @@
-import { HeaderContainer, Button, ContainerButtons, BoxButtonCar } from "./styles";
+import { HeaderContainer, Button, ContainerButtons, BoxButtonCar, ItemsInCarNotification } from "./styles";
 import { MapPin, ShoppingCart } from "phosphor-react";
 
 // Assets
@@ -20,11 +20,11 @@ export function Header() {
           <MapPin size={22}/>
           Porto Alegre, RS
         </Button>
-        <BoxButtonCar href="/purchase">
+        <BoxButtonCar href="/purchase" >
           <Button variant="yellow">
             <ShoppingCart size={22}/>
           </Button>
-          <span>{itemsInCar.length}</span>
+          <ItemsInCarNotification lenghtItems={itemsInCar.length}>{itemsInCar.length}</ItemsInCarNotification>
         </BoxButtonCar>
       </ContainerButtons>
     </HeaderContainer>

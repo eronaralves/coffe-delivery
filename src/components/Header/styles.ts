@@ -47,17 +47,22 @@ export const BoxButtonCar = styled.a`
     cursor: pointer;
   }
 
-  span {
-    position: absolute;
-    right: -10px;
-    top: -10px;
-    font-weight: 700;
-    padding: 0.2rem 0.4rem;
-    font-size: 0.75rem;
+`
+interface ItemsInCarNotificationProps {
+  lenghtItems: number
+}
 
-    border-radius: 1000px;
-    color: ${props => props.theme.white};
-    background-color: ${props => props.theme["yellow-700"]};
-  }
+export const ItemsInCarNotification = styled.span<ItemsInCarNotificationProps>`
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  font-weight: 700;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.75rem;
 
+  border-radius: 1000px;
+  color: ${props => props.theme.white};
+  background-color: ${props => props.theme["yellow-700"]};
+
+  display: ${props => props.lenghtItems === 0 && 'none'};
 `

@@ -57,7 +57,7 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
             <Plus size={14} color="#8047F8" onClick={amountItem}/>
             {coffeAmount}
             <Minus size={14} color="#8047F8" onClick={removeItem}/>
-          </button>
+          </button> 
           <span onClick={() => addItem()}>
             <ShoppingCartSimple size={18} color="#fff" weight='fill'/>
           </span>

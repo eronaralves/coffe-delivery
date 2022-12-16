@@ -14,6 +14,8 @@ import { PurchaseContainer, ContentInfoLocation, Heading, ContentInputs, Input, 
 
 // Components
 import { CoffeSelect } from "./components/CoffeSelect";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../lib/axios";
 
 const formSchema = z.object({
   city: z.string(),
@@ -21,7 +23,7 @@ const formSchema = z.object({
   district: z.string(),
   number: z.number(),
   complement: z.string(),
-  contact: z.string(),
+  contact: z.number(),
   road: z.string(),
   type: z.enum(['credit', 'debit', 'money'])
 })
@@ -29,7 +31,7 @@ const formSchema = z.object({
 type FormInputs = z.infer<typeof formSchema>
 
 export function Purchase() {
-  const {itemsInCar} = useContext(IteminCarContext)
+  const {itemsInCar, setItemsInCar} = useContext(IteminCarContext)
   const { control ,register, handleSubmit} = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,7 +39,7 @@ export function Purchase() {
     }
   })
   
-  
+  const navigation = useNavigate()
   const summary = itemsInCar.reduce((acc, coffe) => {
     acc.totalItems += coffe.currentPrice
     acc.entrega += coffe.amount
@@ -54,10 +56,22 @@ export function Purchase() {
     total: 0
   })
 
-  function handleCompletOrder(data: FormInputs)
+
+  async function handleCompletOrder(data: FormInputs)
   { 
-   
-    console.log(data)
+    const shopCart = [...itemsInCar]
+
+    if(itemsInCar.length > 0) {
+      shopCart.map(async item => {
+        await api.delete(`/coffesInCar/${item.id}`)
+      })
+      
+      navigation('/purchase/complet', {
+        state: data
+      })
+  
+      setItemsInCar([])
+    }
   }
 
   return (
@@ -75,7 +89,8 @@ export function Purchase() {
             </Heading>
 
             <ContentInputs>
-              <Input type="text" placeholder="99 99999-9999" {...register('contact', {valueAsNumber: true})}/>
+              <Input type="number" placeholder="99999-9999" {...register('contact', {valueAsNumber: true})}/>
+
               <Input type="text" placeholder="Rua João Daniel Martinelli" {...register('road')}/>
               <div>
                 <Input placeholder="100" {...register('number', {valueAsNumber: true})}/>
@@ -125,9 +140,14 @@ export function Purchase() {
           <h3>Cafés selecionados</h3>
           <div>
             <BoxCardCoffeSelect>
-              {itemsInCar.map(coffe => (
-                <CoffeSelect key={coffe.id} data={coffe}/>
-              ))}
+              {itemsInCar.length === 0 ? (
+                <span>Adicione um produto em seu carrinho</span>
+              ): (
+                itemsInCar.map(coffe => (
+                  <CoffeSelect key={coffe.id} data={coffe}/>
+                ))
+              )}
+             
             </BoxCardCoffeSelect>
 
             <BoxPrice>
@@ -144,7 +164,9 @@ export function Purchase() {
                 <strong>{formatterPrice.format(summary.total)}</strong>
               </div>
             </BoxPrice>
-            <button type="submit">confirmar pedido</button>
+            <a href="/purchase/complet">
+              <button type="submit">confirmar pedido</button>
+            </a>
           </div>
         </ContainerCoffesSelect>
       </form>

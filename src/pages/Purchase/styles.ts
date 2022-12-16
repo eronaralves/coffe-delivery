@@ -146,7 +146,7 @@ export const ContainerCoffesSelect = styled.div`
     padding: 2.5rem;
     background-color: ${props => props.theme["gray-100"]};
     
-    & > button {
+    & > a > button {
       width: 100%;
       border: 0;
       text-transform: uppercase;
@@ -164,7 +164,7 @@ export const ContainerCoffesSelect = styled.div`
       background-color: ${props => props.theme["yellow-500"]} ;
     }
 
-    & > button:hover {
+    & > a > button:hover {
       background-color: ${props => props.theme["yellow-700"]} ;
     }
   }
@@ -177,7 +177,9 @@ export const BoxCardCoffeSelect = styled.div`
   gap: 3rem;
 
   & > span {
-    
+    text-align: center;
+    font-size: 0.875rem;
+    color: ${props => props.theme["gray-600"]}
   }
 `
 
