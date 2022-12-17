@@ -16,9 +16,19 @@ export const ContainerButtons = styled.div`
 
 `
 
+export const BackgroundButton = {
+  purple: 'purple-700',
+  yellow: 'yellow-700'
+} as const
+
+const ColorButton = {
+  purple: 'purple-100',
+  yellow: 'yellow-300'
+} as const
+
 interface ButtonType {
-  variant: 'purple' | 'yellow'
-}
+  variant: keyof typeof BackgroundButton
+} 
 
 export const Button = styled.button<ButtonType>`
   display: flex;
@@ -31,14 +41,8 @@ export const Button = styled.button<ButtonType>`
   border-radius: 6px;
   transition: background-color 0.2s;
 
-  color: ${props => props.variant === 'purple' ? props.theme["purple-700"]: props.theme["yellow-700"]};
-  background-color: ${props => props.variant === 'purple' ? props.theme["purple-100"]: props.theme["yellow-300"]};
-
-
-  &:nth-child(2):hover {
-    color: ${props => props.theme.white};
-    background-color: ${props => props.variant === 'purple' ? props.theme["purple-500"]: props.theme["yellow-500"]};
-  }
+  color: ${props => props.theme[BackgroundButton[props.variant]]};
+  background-color: ${props => props.theme[ColorButton[props.variant]]};
 `
 
 export const BoxButtonCar = styled.a`

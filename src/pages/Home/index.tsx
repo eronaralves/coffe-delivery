@@ -1,5 +1,5 @@
-import { Coffee, IconProps, Package, ShoppingCart, Timer } from 'phosphor-react'
-import { HomeContainer, AboutContent, Quality, ContainerQualifys, ContentCoffes, Coffes, Background} from './styles'
+import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
+import { HomeContainer, AboutContent, Quality, ContainerQualifys, ContentCoffes, Coffes} from './styles'
 
 // Assets
 import Coffe from '../../assets/coffe.png'
@@ -7,7 +7,6 @@ import { CardCoffe } from './components/CardCoffe'
 import { useContext, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 import { IteminCarContext } from '../../context/ItemInCar'
-import { formToJSON } from 'axios'
 
 interface Coffe {
   id: number,
@@ -15,14 +14,12 @@ interface Coffe {
   name: string;
   description: string;
   price: number;
-  amount: number;
+  quantity: number;
   image: string;
-  currentPrice?: number;
 };
 
 export function Home() {
   const [coffes, setCoffes] = useState<Coffe[]>([])
-  const [locatio, setLocation] = useState('')
   const qualifys = [
     {
       icon: <ShoppingCart size={16} weight="fill"/>,
@@ -49,29 +46,29 @@ export function Home() {
 
   const {setItemsInCar, itemsInCar} = useContext(IteminCarContext)
 
-  async function addInCarList(data: Coffe, amount: number) {
+  async function addInCarList(data: Coffe, quantity: number) {
     try {
       const shopCart = [...itemsInCar];
       
       let coffe = shopCart.find(coffe => coffe.id === data.id);
       if(coffe) {
-        const newAmount = coffe.amount + amount;
-        const newPrice = coffe.currentPrice + (amount * data.price)
+        const newQuantity = coffe.quantity + quantity;
+        const newPrice = coffe.currentPrice + (quantity * data.price)
 
         await api.put(`/coffesInCar/${coffe.id}`, {
           ...coffe,
           currentPrice: newPrice,
-          amount: newAmount
+          quantity: newQuantity
         });
 
-        coffe.amount = newAmount;
+        coffe.quantity = newQuantity;
         coffe.price = newPrice
       } else {
         
         const newCoffe = {
           ...data,
-          currentPrice: data.price * amount,
-          amount
+          currentPrice: data.price * quantity,
+          quantity
         }
         
         await api.post('/coffesInCar', newCoffe);
@@ -88,7 +85,9 @@ export function Home() {
 
   async function fetchCoffes() {
     const response = await api.get('/coffes')
-    setCoffes(response.data)
+    const data = await response.data
+
+    setCoffes(data)
   }
 
   useEffect(() => {
@@ -121,7 +120,7 @@ export function Home() {
 
         <Coffes>
           {coffes.map(coffe => (
-            <CardCoffe key={coffe.id} data={coffe} addInCarList={(amount) => addInCarList(coffe, amount)}/>
+            <CardCoffe key={coffe.id} data={coffe} addInCarList={(quantity) => addInCarList(coffe, quantity)}/>
           ))}
         </Coffes>
       </ContentCoffes>

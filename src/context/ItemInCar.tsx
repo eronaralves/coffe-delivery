@@ -7,7 +7,7 @@ export interface ItemsinCar {
   name: string;
   description: string;
   price: number;
-  amount: number;
+  quantity: number;
   image: string;
   currentPrice: number
 };

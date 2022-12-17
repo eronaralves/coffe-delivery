@@ -31,6 +31,7 @@ export function PurchaseComplet() {
   
   useEffect(() => {
     setStateForm(state)
+    console.log(state)
   }, [])
 
   return (

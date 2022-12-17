@@ -36,6 +36,22 @@ export const AboutContent = styled.section`
     width: 100%;
     max-width: 476px;
   }
+
+  @media(max-width: 600px) {
+    padding-block: 3rem;
+
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media(max-width: 440px) {
+    padding-block: 2.5rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
 `
 
 export const ContainerQualifys = styled.div`
@@ -49,7 +65,7 @@ export const ContainerQualifys = styled.div`
   margin-top: 4.125rem;
 `
 
-export const Background = {
+const Background = {
   yellow700: 'yellow-700',
   yellow500: 'yellow-500',
   purple500: 'purple-500',
@@ -93,7 +109,23 @@ export const ContentCoffes = styled.section`
 `
 
 export const Coffes = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem 2rem;
+
+
+  @media(max-width: 1150px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media(max-width: 800px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media(max-width: 450px) {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
 `

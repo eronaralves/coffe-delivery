@@ -15,10 +15,10 @@ export function CoffeSelect({data}: CoffeSelectProps) {
   const {itemsInCar, setItemsInCar} = useContext(IteminCarContext)
   const [itemsInpurchase, setItemsInpurchase] = useState(data)
 
-  async function handleAddAmount() {
+  async function handleAddQuantity() {
     try {
       let item = {...itemsInpurchase}
-      item.amount = item.amount + 1
+      item.quantity = item.quantity + 1
       item.currentPrice = item.currentPrice + item.price
 
       setItemsInpurchase(item)
@@ -30,11 +30,11 @@ export function CoffeSelect({data}: CoffeSelectProps) {
       if(coffe) {
         await api.put(`/coffesInCar/${coffe.id}`, {
           ...coffe,
-          amount: item.amount,
+          quantity: item.quantity,
           currentPrice: item.currentPrice
         });
 
-        coffe.amount = item.amount
+        coffe.quantity = item.quantity
         coffe.currentPrice = item.currentPrice
  
         console.log(shopCard)
@@ -47,12 +47,12 @@ export function CoffeSelect({data}: CoffeSelectProps) {
     }
   }
 
-  async function handleDecreaseAmount() {
+  async function handleDecreaseQuantity() {
 
     try {
       let item = {...itemsInpurchase}
-      if(item.amount > 0) {
-        item.amount = item.amount - 1
+      if(item.quantity > 0) {
+        item.quantity = item.quantity - 1
         item.currentPrice = item.currentPrice - item.price 
         setItemsInpurchase(item)
       }
@@ -63,10 +63,10 @@ export function CoffeSelect({data}: CoffeSelectProps) {
       if(coffe) {
         await api.put(`/coffesInCar/${coffe.id}`, {
           ...coffe,
-          amount: item.amount,
+          quantity: item.quantity,
           currentPrice: item.currentPrice
         });
-        coffe.amount = item.amount
+        coffe.quantity = item.quantity
         coffe.currentPrice = item.currentPrice
       }
 
@@ -95,9 +95,9 @@ export function CoffeSelect({data}: CoffeSelectProps) {
           <h4>{data.name}</h4>
           <DescriptionSelect>
             <button type="button">
-              <Minus size={14} color="#8047F8" onClick={() => handleDecreaseAmount()}/>
-              {itemsInpurchase.amount}
-              <Plus size={14} color="#8047F8" onClick={() => handleAddAmount()}/>
+              <Minus size={14} color="#8047F8" onClick={() => handleDecreaseQuantity()}/>
+              {itemsInpurchase.quantity}
+              <Plus size={14} color="#8047F8" onClick={() => handleAddQuantity()}/>
             </button>
             <button type="button" onClick={handleDeleteCoffe}>
               <Trash size={16} color="#8047F8"/>

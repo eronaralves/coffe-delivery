@@ -15,27 +15,27 @@ export interface CardCoffeType {
 
 interface CardCoffeProps {
   data: CardCoffeType;
-  addInCarList: (coffeAmount: number) => void
+  addInCarList: (coffeQuantity: number) => void
 }
 
 export function CardCoffe({data, addInCarList}: CardCoffeProps) {
-  const [coffeAmount, setCoffeAmount] = useState(0)
+  const [coffeQuantity, setCoffeQuantity] = useState(0)
 
-  function amountItem() {
-    if(coffeAmount < 5) {
-      setCoffeAmount(state => state +1)
+  function quantityItem() {
+    if(coffeQuantity < 5) {
+      setCoffeQuantity(state => state +1)
     }
   }
 
   function addItem() {
-    addInCarList(coffeAmount)
+    addInCarList(coffeQuantity)
     
-    setCoffeAmount(0)
+    setCoffeQuantity(0)
   }
 
   function removeItem() {
-    if(coffeAmount > 0) {
-      setCoffeAmount(state => state -1)
+    if(coffeQuantity > 0) {
+      setCoffeQuantity(state => state -1)
     }
   }
 
@@ -53,9 +53,9 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
         <span>R$ <strong>{data.price}</strong></span>
 
         <BoxAddincar>
-          <button>
-            <Plus size={14} color="#8047F8" onClick={amountItem}/>
-            {coffeAmount}
+          <button type='button'>
+            <Plus size={14} color="#8047F8" onClick={quantityItem}/>
+            {coffeQuantity}
             <Minus size={14} color="#8047F8" onClick={removeItem}/>
           </button> 
           <span onClick={() => addItem()}>

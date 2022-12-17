@@ -2,7 +2,11 @@ import styled from "styled-components";
 
 export const DefaultContainer = styled.div`
   width: 100%;
-  padding-inline: 32px;
+  padding-inline: 2rem;
+
+  @media(max-width: 600px) {
+    padding-inline: 1.2rem;
+  }
 `
 
 export const Content = styled.main`
