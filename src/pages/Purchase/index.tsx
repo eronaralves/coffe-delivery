@@ -10,7 +10,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
 
  // Styles
-import { PurchaseContainer, ContentInfoLocation, Heading, ContentInputs, Input, ReactInputmask, BoxDefault, ContainerButtons, Button, ContainerCoffesSelect, BoxCardCoffeSelect, BoxPrice,  } from "./styles";
+import { PurchaseContainer, ContentInfoLocation, Heading, ContentInputs, Input, ReactInputmask, BoxDefault, ContainerButtons, Button, ContainerCoffesSelect, BoxCardCoffeSelect, BoxPrice, ContainerInfo } from "./styles";
 
 // Components
 import { CoffeSelect } from "./components/CoffeSelect";
@@ -78,7 +78,7 @@ export function Purchase() {
   return (
     <PurchaseContainer>
       <form onSubmit={handleSubmit(handleCompletOrder)}>
-        <div>
+        <ContainerInfo>
           <h3>Complete seu pedido</h3>
           <ContentInfoLocation>
             <Heading>
@@ -94,7 +94,7 @@ export function Purchase() {
 
               <Input type="text" placeholder="Rua João Daniel Martinelli" {...register('road')}/>
               <div>
-                <Input placeholder="100" {...register('number', {valueAsNumber: true})}/>
+                <Input type="number" placeholder="100" {...register('number', {valueAsNumber: true})}/>
                 <Input type="text" placeholder="Complemento" {...register('complement')}/>
               </div>
               <div>
@@ -136,7 +136,7 @@ export function Purchase() {
             />
 
           </BoxDefault>
-        </div>
+        </ContainerInfo>
         <ContainerCoffesSelect>
           <h3>Cafés selecionados</h3>
           <div>

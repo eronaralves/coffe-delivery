@@ -3,6 +3,7 @@ import { CardCoffeContainer, TypesCoffe, ContentAddInCar, BoxAddincar } from './
 
 // Assets
 import { useState } from 'react';
+import { formatterPriceInDecimal } from '../../../../ultis/formatter';
 
 
 export interface CardCoffeType {
@@ -38,7 +39,7 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
       setCoffeQuantity(state => state -1)
     }
   }
-
+  
   return (
     <CardCoffeContainer>
       <img src={data.image}/>
@@ -50,7 +51,7 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
       <p>{data.description}</p>
 
       <ContentAddInCar>
-        <span>R$ <strong>{data.price}</strong></span>
+        <span>R$ <strong>{formatterPriceInDecimal.format(Number(data.price))}</strong></span>
 
         <BoxAddincar>
           <button type='button'>

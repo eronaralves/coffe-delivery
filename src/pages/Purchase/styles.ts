@@ -18,17 +18,50 @@ export const PurchaseContainer = styled.main`
       color: ${props => props.theme["gray-700"]};
     }
   }
+
+  @media(max-width: 1100px) {
+    form {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+  }
+`
+
+export const ContainerInfo = styled.div`
+  flex: 1;
+
+  @media(max-width: 1100px) {
+    width: 100%;
+    max-width: none;
+    flex: none;
+
+  }
 `
 
 export const BoxDefault = styled.div`
-  width: 640px;
+  width: 100%;
   padding: 2.5rem;
   background-color: ${props => props.theme["gray-100"]};
+
+  @media(max-width: 1100px) {
+    width: 100%;
+    max-width: none;
+  }
+
+  @media(max-width: 480px) {
+    padding: 1.5rem;
+  }
 `
 
 export const ContentInfoLocation = styled(BoxDefault)`
   width: 100%;
   margin-bottom: 0.75rem;
+
+  @media(max-width: 705px) {
+    width: 100%;
+    max-width: 640px;
+  }
 `
 
 export const Heading = styled.div`
@@ -74,9 +107,33 @@ export const ContentInputs = styled.div`
     & > input:nth-child(3) {
       width: 100%;
       max-width: 60px;
+      text-transform: uppercase;
     }
-  
   }
+
+  @media(max-width: 480px) {
+    & > input:nth-child(1) {
+      flex: 1;
+      max-width: none;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      & > input:nth-child(1) {
+        flex: 1;
+        max-width: none;
+      }
+
+      & > input:nth-child(3) {
+        flex: 1;
+        max-width: none;
+      }
+    }
+
+  }
+
 `
 
 export const Input = styled.input`
@@ -90,18 +147,23 @@ export const Input = styled.input`
 `
 
 export const ReactInputmask = styled(InputMask)`
-padding: 0.75rem;
-border: 1px solid ${props => props.theme["gray-300"]};
-border-radius: 4px;
-font-weight: 400;
-font-size: 0.875rem;
+  padding: 0.75rem;
+  border: 1px solid ${props => props.theme["gray-300"]};
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 0.875rem;
 
-background-color:  ${props => props.theme["gray-200"]};
+  background-color:  ${props => props.theme["gray-200"]};
 `
 
 export const ContainerButtons = styled(RadioGroup.Root)`
   display: flex;
   gap: 0.75rem;
+  
+  @media(max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 
@@ -137,12 +199,24 @@ export const Button = styled(RadioGroup.Item)`
     border: 1px solid ${props => props.theme["purple-500"]};
   }
 
+  @media(max-width: 690px) {
+    display: flex;
+    gap: 0.75rem;
+    padding-inline: 0.7rem;
+
+    span {
+      font-size: 0.7rem;
+    }
+  }
+
 `
 
 export const ContainerCoffesSelect = styled.div`
   width: 100%;
+  max-width: 500px;
 
   & > div {
+    width: 100%;
     padding: 2.5rem;
     background-color: ${props => props.theme["gray-100"]};
     
@@ -170,6 +244,22 @@ export const ContainerCoffesSelect = styled.div`
 
     & > a > button:disabled {
       cursor: help;
+    }
+  }
+
+  @media(max-width: 1100px) {
+    width: 100%;
+    max-width: none;
+    flex: none;
+  }
+
+  @media(max-width: 480px) {
+    width: 100%;
+    max-width: none;
+    flex: none;
+
+    & > div {
+      padding: 1.5rem;
     }
   }
 

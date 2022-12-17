@@ -25,7 +25,6 @@ export function CoffeSelect({data}: CoffeSelectProps) {
       
       const shopCard = [...itemsInCar]
       let coffe = shopCard.find(coffe => coffe.id === item.id);
-      console.log(coffe, "COFEFFE")
       
       if(coffe) {
         await api.put(`/coffesInCar/${coffe.id}`, {
@@ -36,8 +35,6 @@ export function CoffeSelect({data}: CoffeSelectProps) {
 
         coffe.quantity = item.quantity
         coffe.currentPrice = item.currentPrice
- 
-        console.log(shopCard)
       }
 
       setItemsInCar(shopCard)

@@ -45,7 +45,7 @@ export const AboutContent = styled.section`
     }
   }
 
-  @media(max-width: 440px) {
+  @media(max-width: 480px) {
     padding-block: 2.5rem;
 
     h2 {

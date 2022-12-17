@@ -8,7 +8,7 @@
       ],
       "name": "Expresso Tradicional",
       "description": "O tradicional café feito com água quente e grãos moídos",
-      "price": 7,
+      "price": 7.5,
       "quantity": 0
     },
     {
@@ -42,7 +42,7 @@
       ],
       "name": "Expresso Gelado",
       "description": "Bebida preparada com café expresso e cubos de gelo",
-      "price": 5,
+      "price": 5.5,
       "quantity": 0
     }
   ],

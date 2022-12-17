@@ -5,13 +5,28 @@ export const PurchaseCompletContainer = styled.div`
   height: 100%;
   
   display: flex;
+  justify-content: space-between;
   align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
 
   margin-top: 5rem;
+
+  img {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  @media(max-width: 530px) {
+    margin-top: 3rem;
+  }
+  
 `
 
 export const Content = styled.div`
   width: 100%;
+  max-width: 500px;
+
   h2 {
     font-family: 'Baloo 2';
     font-weight: 800;
@@ -48,6 +63,10 @@ export const ContentInfos = styled.div`
   padding: 2.5rem;
   background: ${props => props.theme.white};
   border-radius: 6px 36px;
+
+  @media(max-width: 500px) {
+    padding: 2.5rem 1.5rem;
+  }
 `
 export const Background = {
   yellow700: 'yellow-700',
@@ -83,5 +102,11 @@ export const BoxInfo = styled.div<QualityType>`
     font-weight: 400;
     font-size: 1rem;
     color: ${props => props.theme["gray-600"]};
+  }
+
+  @media(max-width: 400px) {
+    p {
+      font-size: .9rem;
+    }
   }
 `

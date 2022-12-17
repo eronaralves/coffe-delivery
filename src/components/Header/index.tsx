@@ -43,7 +43,7 @@ export function Header() {
       <ContainerButtons>
         <Button variant="purple">
           <MapPin size={22}/>
-          <span>{regiaoUser?.label}</span>, <span>{regiaoUser?.value}</span>
+          <span>{regiaoUser?.label}</span> <span>{regiaoUser?.value}</span>
         </Button>
         <BoxButtonCar href="/purchase" >
           <Button variant="yellow" className="shopcart">

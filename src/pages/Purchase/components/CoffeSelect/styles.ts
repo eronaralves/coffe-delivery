@@ -5,7 +5,7 @@ export const CoffeSelectContainer = styled.div`
   
   display: flex;
   justify-content: space-between;
-  gap: 1.25;
+  gap: 1.25rem;
 
   border-bottom: 1px solid #E6E5E5;
   padding-bottom: 2rem;
@@ -20,11 +20,33 @@ export const CoffeSelectContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 1.25rem;
+
   }
 
   & > span {
     font-weight: 700;
     color: ${props => props.theme["gray-600"]};
+  }
+  
+  h4 {
+    color: ${props => props.theme["gray-700"]};
+  }
+
+  @media(max-width: 395px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & > span {
+      text-align: right;
+    }
+
+    & > div {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+
+    }
   }
 `
 
@@ -33,12 +55,10 @@ export const DescriptionSelect = styled.div`
   gap: 0.5rem;
   margin-top: 0.5rem;
 
-  h4 {
-    color: ${props => props.theme["gray-700"]};
-  }
 
   & > button:nth-child(1) {  
-    width: 72px;
+    width: 100%;
+    max-width: 72px;
     display: flex; 
     align-items: center;
     justify-content: space-between;

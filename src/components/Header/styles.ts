@@ -43,6 +43,18 @@ export const Button = styled.button<ButtonType>`
 
   color: ${props => props.theme[BackgroundButton[props.variant]]};
   background-color: ${props => props.theme[ColorButton[props.variant]]};
+
+  & > span:nth-child(2)::after {
+    content: ',';
+  }
+
+  @media(max-width: 370px) {
+    & > span:nth-child(2) {
+      display: none;
+    }
+  }
+
+ 
 `
 
 export const BoxButtonCar = styled.a`
