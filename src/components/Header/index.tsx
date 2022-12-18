@@ -19,11 +19,22 @@ export function Header() {
   async function fetchApi () {
     try {
       navigator.geolocation.getCurrentPosition( async location => {
-        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}&format=json`).then(res => res.json())
-        const data = await response.address
-        const stateUser = states.find(item => item.label === data.city)
-        setRegiaoUser(stateUser)
+        if(location) {
+          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}&format=json`).then(res => res.json())
+          const data = await response.address
+          const stateUser = states.find(item => item.label === data.city)
+
+          return setRegiaoUser(stateUser)
+        } else {
+          console.log('res')
+        }
+      }, (error) => {
+        setRegiaoUser({
+          value: '',
+          label: ''
+      })        
       });
+
     } catch(error) {
       console.log(error)
     }
@@ -41,10 +52,13 @@ export function Header() {
       </a>
 
       <ContainerButtons>
-        <Button variant="purple">
-          <MapPin size={22}/>
-          <span>{regiaoUser?.label}</span> <span>{regiaoUser?.value}</span>
-        </Button>
+        {regiaoUser?.label !== '' && (
+          <Button variant="purple">
+            <MapPin size={22}/>
+            <span>{regiaoUser?.label}</span> <span>{regiaoUser?.value}</span>
+          </Button>
+        )}
+        
         <BoxButtonCar href="/purchase" >
           <Button variant="yellow" className="shopcart">
             <ShoppingCart size={22}/>
