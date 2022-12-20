@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { HeaderContainer, Button, ContainerButtons, BoxButtonCar, ItemsInCarNotification } from "./styles";
 import { MapPin, ShoppingCart } from "phosphor-react";
 
@@ -15,6 +16,8 @@ interface RegiaoUser {
 export function Header() {
   const {itemsInCar} = useContext(IteminCarContext)
   const [regiaoUser, setRegiaoUser] = useState<RegiaoUser>()
+
+  const navigate = useNavigate()
 
   async function getLocation () {
     try {
@@ -48,20 +51,18 @@ export function Header() {
 
   return (
     <HeaderContainer>
-      <a href="/">
-        <img src={Logo}/>
-      </a>
+      <img src={Logo} onClick={() => {navigate('/')}}/>
 
       <ContainerButtons>
         {regiaoUser?.name !== '' && (
           <Button variant="purple">
-            <MapPin size={22}/>
+            <MapPin size={22} />
             <span>{regiaoUser?.name}</span> <span>{regiaoUser?.value}</span>
           </Button>
         )}
         
-        <BoxButtonCar href="/purchase" >
-          <Button variant="yellow" className="shopcart">
+        <BoxButtonCar >
+          <Button variant="yellow" className="shopcart" onClick={() => {navigate('/purchase')}}>
             <ShoppingCart size={22}/>
           </Button>
           <ItemsInCarNotification lenghtItems={itemsInCar.length}>{itemsInCar.length}</ItemsInCarNotification>

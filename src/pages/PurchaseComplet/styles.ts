@@ -85,7 +85,7 @@ export const BoxInfo = styled.div<QualityType>`
   align-items: center;
   gap: 0.75rem;
 
-  span {
+  & > span {
     display: flex;
     align-items: center;
 
@@ -102,6 +102,10 @@ export const BoxInfo = styled.div<QualityType>`
     font-weight: 400;
     font-size: 1rem;
     color: ${props => props.theme["gray-600"]};
+
+    span {
+      text-transform: uppercase;
+    }
   }
 
   @media(max-width: 400px) {

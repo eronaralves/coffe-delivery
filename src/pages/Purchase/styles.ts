@@ -220,7 +220,7 @@ export const ContainerCoffesSelect = styled.div`
     padding: 2.5rem;
     background-color: ${props => props.theme["gray-100"]};
     
-    & > a > button {
+    & > button {
       width: 100%;
       border: 0;
       text-transform: uppercase;
@@ -238,11 +238,11 @@ export const ContainerCoffesSelect = styled.div`
       background-color: ${props => props.theme["yellow-500"]} ;
     }
 
-    & > a > button:hover {
+    & > button:hover {
       background-color: ${props => props.theme["yellow-700"]} ;
     }
 
-    & > a > button:disabled {
+    & > button:disabled {
       cursor: help;
     }
   }

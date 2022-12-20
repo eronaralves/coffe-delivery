@@ -8,6 +8,10 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+
+  & > img {
+    cursor: pointer;
+  }
   
 `
 export const ContainerButtons = styled.div`
@@ -58,7 +62,7 @@ export const Button = styled.button<ButtonType>`
  
 `
 
-export const BoxButtonCar = styled.a`
+export const BoxButtonCar = styled.div`
   position: relative;
   button {
     cursor: pointer;

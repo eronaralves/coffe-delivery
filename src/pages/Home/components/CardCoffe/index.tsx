@@ -41,7 +41,7 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
   
   return (
     <CardCoffeContainer>
-      <img src={data.image}/>
+      <img src={data.image} alt={`foto de café ${data.name}`}/>
       <TypesCoffe>
         {data.type.map(item => <span key={item}>{item}</span>)}
       </TypesCoffe>

@@ -46,7 +46,7 @@ export function PurchaseComplet() {
               <span>
                 <MapPin size={16} color="#fff" weight='fill'/>
               </span>
-              <p>Entrega em <strong>{location?.road}, {location?.number}</strong> {location?.complement} - {location?.city}, {location?.abbreviation}</p>
+              <p>Entrega em <strong>{location?.road}, {location?.number}</strong> {location?.complement} - {location?.city}, <span>{location?.abbreviation}</span></p>
             </BoxInfo>
 
             <BoxInfo variant="yellow500" maxWidth="141px">

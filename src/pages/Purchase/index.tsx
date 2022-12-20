@@ -42,7 +42,8 @@ export function Purchase() {
     }
   })
   
-  const navigation = useNavigate()
+  const navigate = useNavigate()
+
   const summary = itemsInCar.reduce((acc, coffe) => {
     acc.totalItems += coffe.currentPrice
     acc.entrega += coffe.quantity
@@ -62,7 +63,7 @@ export function Purchase() {
   async function handleCompletOrder(data: FormInputs)
   { 
     if(itemsInCar.length > 0) {
-      navigation('/purchase/complet', {
+      navigate('/purchase/complet', {
         state: data
       })
       
@@ -161,9 +162,8 @@ export function Purchase() {
                 <strong>{formatterPrice.format(summary.total)}</strong>
               </div>
             </S.BoxPrice>
-            <a href="/purchase/complet">
-              <button type="submit" >confirmar pedido</button>
-            </a>
+            <button type="submit" onClick={() => {navigate('/purchase')}} >confirmar pedido</button>
+
           </div>
         </S.ContainerCoffesSelect>
       </form>

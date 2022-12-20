@@ -10,6 +10,7 @@ export const CardCoffeContainer = styled.div`
 
   padding: 0 1.5rem 1.5rem;
 
+  border-radius: 6px 36px;
   background-color: ${props => props.theme["gray-100"]};
 
   img {
