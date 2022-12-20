@@ -1,7 +1,7 @@
-import ExpressoTradicional from './src/assets/coffes/expresso-tradicional.png'
-import ExpressoAmericano from './src/assets/coffes/expresso-americano.png'
-import ExpressoCremoso from './src/assets/coffes/expresso-cremoso.png'
-import ExpressoGelado from './src/assets/coffes/expresso-gelado.png'
+import ExpressoTradicional from '../assets/coffes/expresso-tradicional.png'
+import ExpressoAmericano from '../assets/coffes/expresso-americano.png'
+import ExpressoCremoso from '../assets/coffes/expresso-cremoso.png'
+import ExpressoGelado from '../assets/coffes/expresso-gelado.png'
 
 
 export const listCoffes = [
