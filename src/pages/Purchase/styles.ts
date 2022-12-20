@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import * as RadioGroup from '@radix-ui/react-radio-group';
-import InputMask from 'react-input-mask'
+import ReactInputMask from "react-input-mask";
 import { InputHTMLAttributes } from "react";
 
 export const PurchaseContainer = styled.main`
@@ -136,17 +136,17 @@ export const ContentInputs = styled.div`
 
 `
 
-export const Input = styled.input`
+export const InputMask = styled(ReactInputMask)`
+  width: 100%;
+  background-color:  ${props => props.theme["gray-200"]};
   padding: 0.75rem;
   border: 1px solid ${props => props.theme["gray-300"]};
   border-radius: 4px;
   font-weight: 400;
   font-size: 0.875rem;
-
-  background-color:  ${props => props.theme["gray-200"]};
 `
 
-export const ReactInputmask = styled(InputMask)`
+export const Input = styled.input`
   padding: 0.75rem;
   border: 1px solid ${props => props.theme["gray-300"]};
   border-radius: 4px;

@@ -7,6 +7,7 @@ import { CardCoffe } from './components/CardCoffe'
 import { useContext, useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 import { IteminCarContext } from '../../context/ItemInCar'
+import { listCoffes } from '../../ultis/coffes'
 
 interface Coffe {
   id: number,
@@ -49,32 +50,26 @@ export function Home() {
   async function addInCarList(data: Coffe, quantity: number) {
     try {
       const shopCart = [...itemsInCar];
-      
       let coffe = shopCart.find(coffe => coffe.id === data.id);
+
       if(coffe) {
         const newQuantity = coffe.quantity + quantity;
         const newPrice = coffe.currentPrice + (quantity * data.price)
 
-        await api.put(`/coffesInCar/${coffe.id}`, {
-          ...coffe,
-          currentPrice: newPrice,
-          quantity: newQuantity
-        });
-
         coffe.quantity = newQuantity;
         coffe.price = newPrice
-      } else {
         
+      } else {
         const newCoffe = {
           ...data,
           currentPrice: data.price * quantity,
           quantity
         }
-        
-        await api.post('/coffesInCar', newCoffe);
+
         shopCart.push(newCoffe);
       }
-
+      
+      localStorage.setItem('coffesIncar', JSON.stringify(shopCart))
       setItemsInCar(shopCart);
       
 
@@ -84,10 +79,14 @@ export function Home() {
  }
 
   async function fetchCoffes() {
-    const response = await api.get('/coffes')
-    const data = await response.data
+    const storangeCoffe = localStorage.getItem('coffes') || `[]`
 
-    setCoffes(data)
+    if(storangeCoffe !== '[]') {
+      setCoffes(JSON.parse(storangeCoffe))
+    } else {
+      setCoffes(listCoffes)
+      localStorage.setItem('coffes', JSON.stringify(listCoffes))
+    }
   }
 
   useEffect(() => {
@@ -99,7 +98,6 @@ export function Home() {
     <HomeContainer>
       <AboutContent>
         <div>
-          
           <h2>Encontre o café perfeito para qualquer hora do dia</h2>
           <p>Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora</p>
           

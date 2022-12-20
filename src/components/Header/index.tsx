@@ -9,21 +9,21 @@ import { states } from "../../ultis/states";
 
 interface RegiaoUser {
   value: string;
-  label: string;
+  name: string;
 }
 
 export function Header() {
   const {itemsInCar} = useContext(IteminCarContext)
   const [regiaoUser, setRegiaoUser] = useState<RegiaoUser>()
 
-  async function fetchApi () {
+  async function getLocation () {
     try {
       navigator.geolocation.getCurrentPosition( async location => {
         if(location) {
           const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${location.coords.latitude}&lon=${location.coords.longitude}&format=json`).then(res => res.json())
           const data = await response.address
-          const stateUser = states.find(item => item.label === data.city)
-
+          const stateUser = states.find(item => data['ISO3166-2-lvl4'].includes(item.value))
+          
           return setRegiaoUser(stateUser)
         } else {
           console.log('res')
@@ -31,8 +31,9 @@ export function Header() {
       }, (error) => {
         setRegiaoUser({
           value: '',
-          label: ''
-      })        
+          name: ''
+        })        
+        console.log(error)
       });
 
     } catch(error) {
@@ -42,7 +43,7 @@ export function Header() {
   }
 
   useEffect(() => {
-    fetchApi()
+    getLocation()
   }, [])
 
   return (
@@ -52,10 +53,10 @@ export function Header() {
       </a>
 
       <ContainerButtons>
-        {regiaoUser?.label !== '' && (
+        {regiaoUser?.name !== '' && (
           <Button variant="purple">
             <MapPin size={22}/>
-            <span>{regiaoUser?.label}</span> <span>{regiaoUser?.value}</span>
+            <span>{regiaoUser?.name}</span> <span>{regiaoUser?.value}</span>
           </Button>
         )}
         

@@ -27,16 +27,11 @@ export function CoffeSelect({data}: CoffeSelectProps) {
       let coffe = shopCard.find(coffe => coffe.id === item.id);
       
       if(coffe) {
-        await api.put(`/coffesInCar/${coffe.id}`, {
-          ...coffe,
-          quantity: item.quantity,
-          currentPrice: item.currentPrice
-        });
-
         coffe.quantity = item.quantity
         coffe.currentPrice = item.currentPrice
       }
 
+      localStorage.setItem('coffesIncar', JSON.stringify(shopCard))
       setItemsInCar(shopCard)
       
     } catch(error) {
@@ -48,7 +43,7 @@ export function CoffeSelect({data}: CoffeSelectProps) {
 
     try {
       let item = {...itemsInpurchase}
-      if(item.quantity > 0) {
+      if(item.quantity > 1) {
         item.quantity = item.quantity - 1
         item.currentPrice = item.currentPrice - item.price 
         setItemsInpurchase(item)
@@ -58,16 +53,11 @@ export function CoffeSelect({data}: CoffeSelectProps) {
       let coffe = shopCard.find(coffe => coffe.id === item.id)
 
       if(coffe) {
-        await api.put(`/coffesInCar/${coffe.id}`, {
-          ...coffe,
-          quantity: item.quantity,
-          currentPrice: item.currentPrice
-        });
         coffe.quantity = item.quantity
         coffe.currentPrice = item.currentPrice
       }
 
-
+      localStorage.setItem('coffesIncar', JSON.stringify(shopCard))
       setItemsInCar(shopCard)
 
     } catch(error) {
@@ -77,10 +67,9 @@ export function CoffeSelect({data}: CoffeSelectProps) {
 
   async function handleDeleteCoffe() {
     const shopCard = [...itemsInCar]
-
     const deleteCoffe = shopCard.filter(coffe => coffe.id !== data.id)
-    await api.delete(`/coffesInCar/${data.id}`)
-
+    
+    localStorage.setItem('coffesIncar', JSON.stringify(deleteCoffe))
     setItemsInCar(deleteCoffe)
   }
 

@@ -30,7 +30,6 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
 
   function addItem() {
     addInCarList(coffeQuantity)
-    
     setCoffeQuantity(0)
   }
 

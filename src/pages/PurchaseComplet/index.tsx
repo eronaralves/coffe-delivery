@@ -26,12 +26,12 @@ export interface StateProps {
 }
 
 export function PurchaseComplet() {
-  const [stateForm, setStateForm] = useState<StateProps>({} as StateProps)
-  const { state } = useLocation()
+  const [location, setlocation] = useState<StateProps>({} as StateProps)
+  const { state: locationForm } = useLocation()
   
   useEffect(() => {
-    setStateForm(state)
-    console.log(state)
+    setlocation(locationForm)
+    console.log(locationForm)
   }, [])
 
   return (
@@ -46,7 +46,7 @@ export function PurchaseComplet() {
               <span>
                 <MapPin size={16} color="#fff" weight='fill'/>
               </span>
-              <p>Entrega em <strong>{stateForm?.road}, {stateForm?.number}</strong> {stateForm?.complement} - {stateForm?.city}, {stateForm?.abbreviation}</p>
+              <p>Entrega em <strong>{location?.road}, {location?.number}</strong> {location?.complement} - {location?.city}, {location?.abbreviation}</p>
             </BoxInfo>
 
             <BoxInfo variant="yellow500" maxWidth="141px">
@@ -60,7 +60,7 @@ export function PurchaseComplet() {
               <span>
                 <CurrencyDollar size={16} color="#fff" weight='fill'/>
               </span>
-              <p>Pagamento na entrega <strong>{Pagamento[stateForm?.type]}</strong></p>
+              <p>Pagamento na entrega <strong>{Pagamento[location?.type]}</strong></p>
             </BoxInfo>
           </ContentInfos>
         </BorderGradient>

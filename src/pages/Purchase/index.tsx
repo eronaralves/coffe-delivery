@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CurrencyDollar, MapPinLine, Money, Bank, CreditCard } from "phosphor-react";
 
+
 import { IteminCarContext } from "../../context/ItemInCar";
 import { formatterPrice } from "../../ultis/formatter";
 
@@ -10,7 +11,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
 
  // Styles
-import { PurchaseContainer, ContentInfoLocation, Heading, ContentInputs, Input, ReactInputmask, BoxDefault, ContainerButtons, Button, ContainerCoffesSelect, BoxCardCoffeSelect, BoxPrice, ContainerInfo } from "./styles";
+import * as S from "./styles";
 
 // Components
 import { CoffeSelect } from "./components/CoffeSelect";
@@ -23,7 +24,7 @@ const formSchema = z.object({
   district: z.string(),
   number: z.number(),
   complement: z.string(),
-  contact: z.number(),
+  contact: z.string(),
   road: z.string(),
   type: z.enum(['credit', 'debit', 'money'])
 })
@@ -60,87 +61,82 @@ export function Purchase() {
 
   async function handleCompletOrder(data: FormInputs)
   { 
-    const shopCart = [...itemsInCar]
-
     if(itemsInCar.length > 0) {
-      shopCart.map(async item => {
-        await api.delete(`/coffesInCar/${item.id}`)
-      })
-      
       navigation('/purchase/complet', {
         state: data
       })
-  
+      
+      localStorage.setItem('coffesIncar', `[]`)
       setItemsInCar([])
     }
   }
 
   return (
-    <PurchaseContainer>
+    <S.PurchaseContainer>
       <form onSubmit={handleSubmit(handleCompletOrder)}>
-        <ContainerInfo>
+        <S.ContainerInfo>
           <h3>Complete seu pedido</h3>
-          <ContentInfoLocation>
-            <Heading>
+          <S.ContentInfoLocation>
+            <S.Heading>
               <MapPinLine size={22} color="#C47F17"/>
               <div>
                 <span>Endereço de Entrega</span>
                 <p>Informe o endereço onde deseja receber seu pedido</p>
               </div>
-            </Heading>
+            </S.Heading>
 
-            <ContentInputs>
-              <Input type="number" placeholder="99999-9999" {...register('contact', {valueAsNumber: true})}/>
+            <S.ContentInputs>
+              <S.InputMask mask="(99) 99999-9999" placeholder="(99) 99999-9999" {...register('contact')}/>
 
-              <Input type="text" placeholder="Rua João Daniel Martinelli" {...register('road')}/>
+              <S.Input type="text" placeholder="Rua João Daniel Martinelli" {...register('road')}/>
               <div>
-                <Input type="number" placeholder="100" {...register('number', {valueAsNumber: true})}/>
-                <Input type="text" placeholder="Complemento" {...register('complement')}/>
+                <S.Input type="number" placeholder="100" {...register('number', {valueAsNumber: true})}/>
+                <S.Input type="text" placeholder="Complemento" {...register('complement')}/>
               </div>
               <div>
-                <Input type="text" placeholder="Farrapos" {...register('district')}/>
-                <Input type="text" placeholder="Rio de Janeiro" {...register('city')}/>
-                <Input type="text" placeholder="RJ" maxLength={2} {...register('abbreviation')} />
+                <S.Input type="text" placeholder="Inhauma" {...register('district')}/>
+                <S.Input type="text" placeholder="Rio de Janeiro" {...register('city')}/>
+                <S.Input type="text" placeholder="RJ" maxLength={2} {...register('abbreviation')} />
               </div>
-            </ContentInputs>
-          </ContentInfoLocation>
-          <BoxDefault>
-            <Heading>
+            </S.ContentInputs>
+          </S.ContentInfoLocation>
+          <S.BoxDefault>
+            <S.Heading>
               <CurrencyDollar size={22} color="#8047F8"/>
               <div>
                 <span>Pagamento</span>
                 <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
               </div>
-            </Heading>
+            </S.Heading>
             <Controller
               control={control}
               name="type"
               render={({field}) => {
                 return (
-                  <ContainerButtons onValueChange={field.onChange} value={field.value}>
-                    <Button value="credit">
+                  <S.ContainerButtons onValueChange={field.onChange} value={field.value}>
+                    <S.Button value="credit">
                       <CreditCard color="#8047F8"/>
                       <span>Cartão de crédito</span>
-                    </Button>
-                    <Button value="debit">
+                    </S.Button>
+                    <S.Button value="debit">
                       <Bank color="#8047F8"/>
                       <span>cartão de débito</span>
-                    </Button>
-                    <Button value="money">
+                    </S.Button>
+                    <S.Button value="money">
                       <Money color="#8047F8"/>
                       <span>dinheiro</span>
-                    </Button>
-                  </ContainerButtons>
+                    </S.Button>
+                  </S.ContainerButtons>
                 )
               }}
             />
 
-          </BoxDefault>
-        </ContainerInfo>
-        <ContainerCoffesSelect>
+          </S.BoxDefault>
+        </S.ContainerInfo>
+        <S.ContainerCoffesSelect>
           <h3>Cafés selecionados</h3>
           <div>
-            <BoxCardCoffeSelect>
+            <S.BoxCardCoffeSelect>
               {itemsInCar.length === 0 ? (
                 <span>Adicione um produto em seu carrinho</span>
               ): (
@@ -149,9 +145,9 @@ export function Purchase() {
                 ))
               )}
              
-            </BoxCardCoffeSelect>
+            </S.BoxCardCoffeSelect>
 
-            <BoxPrice>
+            <S.BoxPrice>
               <div>
                 <span>Total de itens</span>
                 <span>{formatterPrice.format(summary.totalItems)}</span>
@@ -164,13 +160,13 @@ export function Purchase() {
                 <strong>Total</strong>
                 <strong>{formatterPrice.format(summary.total)}</strong>
               </div>
-            </BoxPrice>
+            </S.BoxPrice>
             <a href="/purchase/complet">
               <button type="submit" >confirmar pedido</button>
             </a>
           </div>
-        </ContainerCoffesSelect>
+        </S.ContainerCoffesSelect>
       </form>
-    </PurchaseContainer>
+    </S.PurchaseContainer>
   )
 }

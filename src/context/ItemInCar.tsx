@@ -12,12 +12,12 @@ export interface ItemsinCar {
   currentPrice: number
 };
 
-interface ItemInCarType {
+interface ItemInCarProvider {
   itemsInCar: ItemsinCar[],
   setItemsInCar: any
 }
 
-export const IteminCarContext = createContext({} as ItemInCarType)
+export const IteminCarContext = createContext({} as ItemInCarProvider)
 
 interface IteminCarProviderProps {
   children: ReactNode
@@ -27,10 +27,10 @@ export function IteminCarProvider({children}: IteminCarProviderProps) {
   const [itemsInCar, setItemsInCar] = useState<ItemsinCar[]>([])
 
   async function fecthItemsInCar() {
-    const response = await api.get('/coffesInCar')
-    setItemsInCar(response.data)
+    const ItemInCarStorange = localStorage.getItem('coffesIncar') || `[]`
+
+    setItemsInCar(JSON.parse(ItemInCarStorange))
   }
-  
 
   useEffect(() => {
     fecthItemsInCar()
