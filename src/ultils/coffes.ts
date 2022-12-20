@@ -1,8 +1,13 @@
+import ExpressoTradicional from './src/assets/coffes/expresso-tradicional.png'
+import ExpressoAmericano from './src/assets/coffes/expresso-americano.png'
+import ExpressoCremoso from './src/assets/coffes/expresso-cremoso.png'
+import ExpressoGelado from './src/assets/coffes/expresso-gelado.png'
+
 
 export const listCoffes = [
   {
     id: 1,
-    image: "./src/assets/coffes/expresso-tradicional.png",
+    image: ExpressoTradicional,
     type: [
       "Tradicional"
     ],
@@ -13,7 +18,7 @@ export const listCoffes = [
   },
   {
     id: 2,
-    image: "./src/assets/coffes/expresso-americano.png",
+    image: ExpressoAmericano,
     type: [
       "Tradicional"
     ],
@@ -24,7 +29,7 @@ export const listCoffes = [
   },
   {
     id: 3,
-    image: "./src/assets/coffes/expresso-cremoso.png",
+    image: ExpressoCremoso,
     type: [
       "Tradicional"
     ],
@@ -35,7 +40,7 @@ export const listCoffes = [
   },
   {
     id: 4,
-    image: "./src/assets/coffes/expresso-gelado.png",
+    image: ExpressoGelado,
     type: [
       "Tradicional",
       "Gelado"
