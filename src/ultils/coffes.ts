@@ -2,7 +2,7 @@
 export const listCoffes = [
   {
     id: 1,
-    image: "./src/assets/expresso-tradicional.png",
+    image: "./src/assets/coffes/expresso-tradicional.png",
     type: [
       "Tradicional"
     ],
@@ -13,7 +13,7 @@ export const listCoffes = [
   },
   {
     id: 2,
-    image: "./src/assets/expresso-americano.png",
+    image: "./src/assets/coffes/expresso-americano.png",
     type: [
       "Tradicional"
     ],
@@ -24,26 +24,26 @@ export const listCoffes = [
   },
   {
     id: 3,
-    image: "./src/assets/expresso-cremoso.png",
+    image: "./src/assets/coffes/expresso-cremoso.png",
     type: [
       "Tradicional"
     ],
-    "name": "Expresso Cremoso",
-    "description": "Café expresso tradicional com espuma cremosa",
-    "price": 10,
-    "quantity": 0
+    name: "Expresso Cremoso",
+    description: "Café expresso tradicional com espuma cremosa",
+    price: 10,
+    quantity: 0
   },
   {
     id: 4,
-    image: "./src/assets/expresso-gelado.png",
+    image: "./src/assets/coffes/expresso-gelado.png",
     type: [
       "Tradicional",
       "Gelado"
     ],
-    "name": "Expresso Gelado",
-    "description": "Bebida preparada com café expresso e cubos de gelo",
-    "price": 5.5,
-    "quantity": 0
+    name: "Expresso Gelado",
+    description: "Bebida preparada com café expresso e cubos de gelo",
+    price: 5.5,
+    quantity: 0
   }
 ] 
 

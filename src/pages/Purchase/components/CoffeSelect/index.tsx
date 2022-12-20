@@ -1,12 +1,13 @@
-import { CoffeSelectContainer, DescriptionSelect } from "./styles";
-
-import cafe from '../../../../assets/expresso-tradicional.png'
-import { Minus, Plus, Trash } from "phosphor-react";
-import {formatterPrice} from '../../../../ultis/formatter'
+import { useContext, useState } from "react";
 import { IteminCarContext, ItemsinCar } from "../../../../context/ItemInCar";
-import { useContext, useEffect, useState } from "react";
-import { api } from "../../../../lib/axios";
+import { Minus, Plus, Trash } from "phosphor-react";
 
+// Ultils
+import {formatterPrice} from '../../../../ultils/formatter'
+// Styles
+import * as S from "./styles";
+
+// Interfaces
 interface CoffeSelectProps {
   data: ItemsinCar;
 }
@@ -74,12 +75,12 @@ export function CoffeSelect({data}: CoffeSelectProps) {
   }
 
   return (
-    <CoffeSelectContainer>
+    <S.CoffeSelectContainer>
       <div>
         <img src={data.image}/>
         <div>
           <h4>{data.name}</h4>
-          <DescriptionSelect>
+          <S.DescriptionSelect>
             <button type="button">
               <Minus size={14} color="#8047F8" onClick={() => handleDecreaseQuantity()}/>
               {itemsInpurchase.quantity}
@@ -89,10 +90,10 @@ export function CoffeSelect({data}: CoffeSelectProps) {
               <Trash size={16} color="#8047F8"/>
               Remover
             </button>
-          </DescriptionSelect>
+          </S.DescriptionSelect>
         </div>
       </div>
       <span>{formatterPrice.format(itemsInpurchase.price)}</span>
-    </CoffeSelectContainer>
+    </S.CoffeSelectContainer>
   ) 
 }

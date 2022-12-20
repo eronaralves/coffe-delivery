@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { HeaderContainer, Button, ContainerButtons, BoxButtonCar, ItemsInCarNotification } from "./styles";
+import * as S from './styles'
 import { MapPin, ShoppingCart } from "phosphor-react";
 
 // Assets
 import Logo from '../../assets/logo.svg'
 import { IteminCarContext } from "../../context/ItemInCar";
 import { useContext, useEffect, useState } from "react";
-import { states } from "../../ultis/states";
+import { states } from "../../ultils/states";
 
 interface RegiaoUser {
   value: string;
@@ -50,24 +50,24 @@ export function Header() {
   }, [])
 
   return (
-    <HeaderContainer>
+    <S.HeaderContainer>
       <img src={Logo} onClick={() => {navigate('/')}}/>
 
-      <ContainerButtons>
+      <S.ContainerButtons>
         {regiaoUser?.name !== '' && (
-          <Button variant="purple">
+          <S.Button variant="purple">
             <MapPin size={22} />
             <span>{regiaoUser?.name}</span> <span>{regiaoUser?.value}</span>
-          </Button>
+          </S.Button>
         )}
         
-        <BoxButtonCar >
-          <Button variant="yellow" className="shopcart" onClick={() => {navigate('/purchase')}}>
+        <S.BoxButtonCar >
+          <S.Button variant="yellow" className="shopcart" onClick={() => {navigate('/purchase')}}>
             <ShoppingCart size={22}/>
-          </Button>
-          <ItemsInCarNotification lenghtItems={itemsInCar.length}>{itemsInCar.length}</ItemsInCarNotification>
-        </BoxButtonCar>
-      </ContainerButtons>
-    </HeaderContainer>
+          </S.Button>
+          <S.ItemsInCarNotification lenghtItems={itemsInCar.length}>{itemsInCar.length}</S.ItemsInCarNotification>
+        </S.BoxButtonCar>
+      </S.ContainerButtons>
+    </S.HeaderContainer>
   )
 }

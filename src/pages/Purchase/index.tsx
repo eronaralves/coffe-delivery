@@ -3,7 +3,7 @@ import { CurrencyDollar, MapPinLine, Money, Bank, CreditCard } from "phosphor-re
 
 
 import { IteminCarContext } from "../../context/ItemInCar";
-import { formatterPrice } from "../../ultis/formatter";
+import { formatterPrice } from "../../ultils/formatter";
 
 // form
 import * as z from 'zod'
@@ -16,8 +16,9 @@ import * as S from "./styles";
 // Components
 import { CoffeSelect } from "./components/CoffeSelect";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../lib/axios";
 
+
+// Schema
 const formSchema = z.object({
   city: z.string(),
   abbreviation: z.string().max(2, ''),

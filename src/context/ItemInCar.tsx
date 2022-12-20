@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { api } from "../lib/axios";
 
 export interface ItemsinCar {
   id: number,

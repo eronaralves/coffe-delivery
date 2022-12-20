@@ -1,11 +1,13 @@
 import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
-import { CardCoffeContainer, TypesCoffe, ContentAddInCar, BoxAddincar } from './styles'
+
+// Styles
+import * as S from './styles'
 
 // Assets
 import { useState } from 'react';
-import { formatterPriceInDecimal } from '../../../../ultis/formatter';
+import { formatterPrice, formatterPriceInDecimal } from '../../../../ultils/formatter';
 
-
+// Interfaces
 export interface CardCoffeType {
   type: string[];
   name: string;
@@ -30,6 +32,7 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
 
   function addItem() {
     addInCarList(coffeQuantity)
+
     setCoffeQuantity(0)
   }
 
@@ -39,20 +42,22 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
     }
   }
   
+  const formatterWithoutReais = formatterPrice.format(Number(data.price)).replace('R$', '')
+
   return (
-    <CardCoffeContainer>
-      <img src={data.image} alt={`foto de café ${data.name}`}/>
-      <TypesCoffe>
+    <S.CardCoffeContainer>
+      <img src={data.image}/>
+      <S.TypesCoffe>
         {data.type.map(item => <span key={item}>{item}</span>)}
-      </TypesCoffe>
+      </S.TypesCoffe>
 
       <h3>{data.name}</h3>
       <p>{data.description}</p>
 
-      <ContentAddInCar>
-        <span>R$ <strong>{formatterPriceInDecimal.format(Number(data.price))}</strong></span>
+      <S.ContentAddInCar>
+        <span>R$<strong>{formatterWithoutReais}</strong></span>
 
-        <BoxAddincar>
+        <S.BoxAddincar>
           <button type='button'>
             <Plus size={14} color="#8047F8" onClick={quantityItem}/>
             {coffeQuantity}
@@ -61,8 +66,8 @@ export function CardCoffe({data, addInCarList}: CardCoffeProps) {
           <span onClick={() => addItem()}>
             <ShoppingCartSimple size={18} color="#fff" weight='fill'/>
           </span>
-        </BoxAddincar>
-      </ContentAddInCar>
-    </CardCoffeContainer>
+        </S.BoxAddincar>
+      </S.ContentAddInCar>
+    </S.CardCoffeContainer>
   )
 }

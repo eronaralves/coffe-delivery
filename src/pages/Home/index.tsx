@@ -1,14 +1,20 @@
+import { useContext, useEffect, useState } from 'react'
+import { IteminCarContext } from '../../context/ItemInCar'
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
-import { HomeContainer, AboutContent, Quality, ContainerQualifys, ContentCoffes, Coffes} from './styles'
+
+// Ultils
+import { listCoffes } from '../../ultils/coffes'
+
+// Styles
+import * as S from './styles'
 
 // Assets
 import Coffe from '../../assets/coffe.png'
-import { CardCoffe } from './components/CardCoffe'
-import { useContext, useEffect, useState } from 'react'
-import { api } from '../../lib/axios'
-import { IteminCarContext } from '../../context/ItemInCar'
-import { listCoffes } from '../../ultis/coffes'
 
+// Components
+import { CardCoffe } from './components/CardCoffe'
+
+// Interfaces
 interface Coffe {
   id: number,
   type: string[];
@@ -95,33 +101,33 @@ export function Home() {
   
 
   return (
-    <HomeContainer>
-      <AboutContent>
+    <S.HomeContainer>
+      <S.AboutContent>
         <div>
           <h2>Encontre o café perfeito para qualquer hora do dia</h2>
           <p>Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora</p>
           
-          <ContainerQualifys>
+          <S.ContainerQualifys>
             {qualifys.map((item, index) => (
-              <Quality key={index} variant={item.variant}>
+              <S.Quality key={index} variant={item.variant}>
                 <span>{item.icon}</span>
                 <p>{item.name}</p>
-              </Quality>
+              </S.Quality>
             ))}
-          </ContainerQualifys>
+          </S.ContainerQualifys>
         </div>
         <img src={Coffe}/>
-      </AboutContent>
+      </S.AboutContent>
 
-      <ContentCoffes>
+      <S.ContentCoffes>
         <h2>Nossos cafés</h2>
 
-        <Coffes>
+        <S.Coffes>
           {coffes.map(coffe => (
             <CardCoffe key={coffe.id} data={coffe} addInCarList={(quantity) => addInCarList(coffe, quantity)}/>
           ))}
-        </Coffes>
-      </ContentCoffes>
-    </HomeContainer>
+        </S.Coffes>
+      </S.ContentCoffes>
+    </S.HomeContainer>
   )
 }
