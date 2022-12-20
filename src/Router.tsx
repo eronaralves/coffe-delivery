@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Default } from "./layouts/Default";
+import { Default } from "./layouts";
 import { Home } from "./pages/Home";
 import { Purchase } from "./pages/Purchase";
 import { PurchaseComplet } from "./pages/PurchaseComplet";

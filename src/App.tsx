@@ -3,7 +3,7 @@ import { GlobalStyle } from "./styles/global";
 import { defaultTheme } from "./styles/theme/default";
 import {BrowserRouter as RouterDom} from 'react-router-dom'
 import { Router } from "./Router";
-import { Default } from "./layouts/Default";
+import { Default } from "./layouts";
 import { IteminCarProvider } from "./context/ItemInCar";
 
 export function App() {
