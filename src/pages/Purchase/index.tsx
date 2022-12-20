@@ -34,9 +34,7 @@ type FormInputs = z.infer<typeof formSchema>
 
 export function Purchase() {
   const {itemsInCar, setItemsInCar} = useContext(IteminCarContext)
-  const { control ,register, handleSubmit, formState: {
-
-  }} = useForm<FormInputs>({
+  const { control ,register, handleSubmit } = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       type: 'credit'
@@ -48,11 +46,8 @@ export function Purchase() {
   const summary = itemsInCar.reduce((acc, coffe) => {
     acc.totalItems += coffe.currentPrice
     acc.entrega += coffe.quantity
-    if(acc.entrega === 0) {
-      acc.entrega = 0
-    } else {
-      acc.entrega = 3
-    }
+    acc.entrega = 3
+
     acc.total = (acc.totalItems + acc.entrega)
     return acc;
   }, {
