@@ -1,11 +1,16 @@
-import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
+import { useState } from 'react';
+import { formatterPrice, formatterPriceInDecimal } from '../../../../ultils/formatter';
+import { useTheme } from 'styled-components'
 
 // Styles
 import * as S from './styles'
 
 // Assets
-import { useState } from 'react';
-import { formatterPrice, formatterPriceInDecimal } from '../../../../ultils/formatter';
+import Coffe from '../../assets/coffe.png'
+import Americano from '../../../../assets/coffes/expresso-americano.png'
+import StarRatings from 'react-star-ratings';
+
+
 
 // Interfaces
 export interface CardCoffeType {
@@ -21,53 +26,41 @@ interface CardCoffeProps {
   addInCarList: (coffeQuantity: number) => void
 }
 
-export function CardCoffe({data, addInCarList}: CardCoffeProps) {
+export function CardCoffe() {
   const [coffeQuantity, setCoffeQuantity] = useState(0)
 
-  function quantityItem() {
-    if(coffeQuantity < 5) {
-      setCoffeQuantity(state => state +1)
-    }
-  }
+  const theme = useTheme()
 
-  function addItem() {
-    addInCarList(coffeQuantity)
+  // function quantityItem() {
+  //   if(coffeQuantity < 5) {
+  //     setCoffeQuantity(state => state +1)
+  //   }
+  // }
 
-    setCoffeQuantity(0)
-  }
+  // function addItem() {
+  //   addInCarList(coffeQuantity)
 
-  function removeItem() {
-    if(coffeQuantity > 0) {
-      setCoffeQuantity(state => state -1)
-    }
-  }
-  
-  const formatterWithoutReais = formatterPrice.format(Number(data.price)).replace('R$', '')
+  //   setCoffeQuantity(0)
+  // }
+
+  // function removeItem() {
+  //   if(coffeQuantity > 0) {
+  //     setCoffeQuantity(state => state -1)
+  //   }
+  // }
 
   return (
     <S.CardCoffeContainer>
-      <img src={data.image}/>
-      <S.TypesCoffe>
-        {data.type.map(item => <span key={item}>{item}</span>)}
-      </S.TypesCoffe>
-
-      <h3>{data.name}</h3>
-      <p>{data.description}</p>
-
-      <S.ContentAddInCar>
-        <span>R$<strong>{formatterWithoutReais}</strong></span>
-
-        <S.BoxAddincar>
-          <button type='button'>
-            <Plus size={14} color="#8047F8" onClick={quantityItem}/>
-            {coffeQuantity}
-            <Minus size={14} color="#8047F8" onClick={removeItem}/>
-          </button> 
-          <span onClick={() => addItem()}>
-            <ShoppingCartSimple size={18} color="#fff" weight='fill'/>
-          </span>
-        </S.BoxAddincar>
-      </S.ContentAddInCar>
+      <img src={Americano}/>
+        <div>
+          <span>2.8</span>
+          <StarRatings
+            rating={1}
+            numberOfStars={1}
+            starRatedColor={theme['yellow-500']}
+            starDimension="15px"
+          />
+        </div>
     </S.CardCoffeContainer>
   )
 }
