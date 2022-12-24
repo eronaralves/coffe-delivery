@@ -1,18 +1,16 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 
-export interface ItemsinCar {
+export interface ItemInCar {
   id: number,
-  type: string[];
   name: string;
-  description: string;
   price: number;
   quantity: number;
   image: string;
-  currentPrice: number
+  currentPrice: number;
 };
 
 interface ItemInCarProvider {
-  itemsInCar: ItemsinCar[],
+  itemsInCar: ItemInCar[],
   setItemsInCar: any
 }
 
@@ -23,7 +21,7 @@ interface IteminCarProviderProps {
 }
 
 export function IteminCarProvider({children}: IteminCarProviderProps) {
-  const [itemsInCar, setItemsInCar] = useState<ItemsinCar[]>([])
+  const [itemsInCar, setItemsInCar] = useState<ItemInCar[]>([])
 
   async function fecthItemsInCar() {
     const ItemInCarStorange = localStorage.getItem('coffesIncar') || `[]`

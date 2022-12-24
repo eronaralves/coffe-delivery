@@ -1,34 +1,27 @@
 import { useState } from 'react';
-import { formatterPrice, formatterPriceInDecimal } from '../../../../ultils/formatter';
 import { useTheme } from 'styled-components'
 
 // Styles
 import * as S from './styles'
 
 // Assets
-import Coffe from '../../assets/coffe.png'
-import Americano from '../../../../assets/coffes/expresso-americano.png'
 import StarRatings from 'react-star-ratings';
 
-
+interface CardCoffe {
+  image: string;
+  avaliation: number;
+  background: string;
+}
 
 // Interfaces
-export interface CardCoffeType {
-  type: string[];
-  name: string;
-  description: string;
-  image: string,
-  price: number;
-}
-
 interface CardCoffeProps {
-  data: CardCoffeType;
-  addInCarList: (coffeQuantity: number) => void
+  data: CardCoffe;
+  selectCoffe: () => void;
 }
 
-export function CardCoffe() {
-  const [coffeQuantity, setCoffeQuantity] = useState(0)
 
+
+export function CardCoffe({data, selectCoffe}: CardCoffeProps) {
   const theme = useTheme()
 
   // function quantityItem() {
@@ -50,10 +43,10 @@ export function CardCoffe() {
   // }
 
   return (
-    <S.CardCoffeContainer>
-      <img src={Americano}/>
+    <S.CardCoffeContainer onClick={selectCoffe} background={data.background}>
+      <img src={data.image}/>
         <div>
-          <span>2.8</span>
+          <span>{data.avaliation}</span>
           <StarRatings
             rating={1}
             numberOfStars={1}

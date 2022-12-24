@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-export const CardCoffeContainer = styled.div`
- width: 120px;
-  height: 120px;
+interface CardCoffeContainerProps {
+  background: string
+}
+
+export const CardCoffeContainer = styled.div<CardCoffeContainerProps>`
+  width: 150px;
+  height: 150px;
 
   display: flex;
   flex-direction: column;
@@ -14,10 +18,10 @@ export const CardCoffeContainer = styled.div`
   border-radius: 50%;
 
   cursor: pointer;
-  background-color: ${({theme}) => theme["green-400"]};
+  background-color: ${({background}) => background};
 
   img {
-    width: 70px;
+    width: 90px;
   }
 
   & > div {
@@ -30,7 +34,7 @@ export const CardCoffeContainer = styled.div`
     gap: 4px;
     
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     right: 0px;
 
     padding: 6px 30px;

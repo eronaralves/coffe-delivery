@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   width: 100%;
+  height: 100px;
+
   padding-block: 2rem;
 
   display: flex;
@@ -45,9 +47,6 @@ export const Button = styled.button<ButtonType>`
   border: 0;
   border-radius: 6px;
   transition: background-color 0.2s;
-
-  color: ${props => props.theme[BackgroundButton[props.variant]]};
-  background-color: ${props => props.theme[ColorButton[props.variant]]};
 
   & > span:nth-child(2)::after {
     content: ',';
