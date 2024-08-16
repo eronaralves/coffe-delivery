@@ -6,6 +6,9 @@ import { Router } from "./Router";
 import { Default } from "./layouts";
 import { IteminCarProvider } from "./context/ItemInCar";
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 export function App() {
 
   return (
@@ -14,6 +17,7 @@ export function App() {
       <IteminCarProvider>
         <RouterDom>
           <Router/>
+          <ToastContainer />
         </RouterDom>
       </IteminCarProvider>
     </ThemeProvider>

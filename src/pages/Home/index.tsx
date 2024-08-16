@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { IteminCarContext } from '../../context/ItemInCar'
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
+import { toast } from 'react-toastify'
 
 // Ultils
 import { listCoffes } from '../../ultils/coffes'
@@ -61,7 +62,7 @@ export function Home() {
       if(coffe) {
         const newQuantity = coffe.quantity + quantity;
         const newPrice = coffe.currentPrice + (quantity * data.price)
-
+        
         coffe.quantity = newQuantity;
         coffe.price = newPrice
         
@@ -71,12 +72,15 @@ export function Home() {
           currentPrice: data.price * quantity,
           quantity
         }
-
+        
         shopCart.push(newCoffe);
       }
       
       localStorage.setItem('coffesIncar', JSON.stringify(shopCart))
       setItemsInCar(shopCart);
+      toast.success('Item adicionado no seu carrinho.', {
+        autoClose: 2000
+      })
       
 
     } catch (error: any) {

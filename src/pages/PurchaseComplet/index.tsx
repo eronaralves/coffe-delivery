@@ -26,14 +26,13 @@ export function PurchaseComplet() {
   
   useEffect(() => {
     setlocation(locationForm)
-    console.log(locationForm)
   }, [])  
 
   const Pagamento = {
     debit: 'Cartão de Debito',
     credit: 'Cartâo de Crédito',
     money: 'Dinheiro'
-  } as const
+  }
 
   return (
     <S.PurchaseCompletContainer>

@@ -21,11 +21,14 @@ import { useNavigate } from "react-router-dom";
 // Schema
 const formSchema = z.object({
   city: z.string(),
-  abbreviation: z.string().max(2, ''),
+  abbreviation: z.string()
+                .refine((val) => val.length === 2, { message: 'O UF deve ter exatamente 2 caractéres' }),
   district: z.string(),
-  number: z.number(),
+  number: z.string(),
   complement: z.string(),
-  contact: z.string(),
+  contact: z.string()
+          .transform((val) => val.replace(/_/g, ''))
+          .refine((val) => val.length === 15, { message: 'O contato deve ter exatamente 11 dígitos' }),
   road: z.string(),
   type: z.enum(['credit', 'debit', 'money'])
 })
@@ -34,7 +37,7 @@ type FormInputs = z.infer<typeof formSchema>
 
 export function Purchase() {
   const {itemsInCar, setItemsInCar} = useContext(IteminCarContext)
-  const { control ,register, handleSubmit } = useForm<FormInputs>({
+  const { control ,register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       type: 'credit'
@@ -56,8 +59,9 @@ export function Purchase() {
     total: 0
   })
 
-  async function handleCompletOrder(data: FormInputs)
-  { 
+  async function handleCompletOrder(data: FormInputs) { 
+    console.log(data, 'dsa')
+    return
     if(itemsInCar.length > 0) {
       navigate('/purchase/complet', {
         state: data
@@ -83,8 +87,9 @@ export function Purchase() {
             </S.Heading>
 
             <S.ContentInputs>
-              <S.InputMask mask="(99) 99999-9999" placeholder="(99) 99999-9999" {...register('contact')}/>
-
+              <S.InputMask mask="(99) 99999-9999" placeholder="(99) 99999-9999" {...register('contact')} />
+              <span>{errors.contact?.message}</span>
+              
               <S.Input type="text" placeholder="Rua João Daniel Martinelli" {...register('road')}/>
               <div>
                 <S.Input type="number" placeholder="100" {...register('number', {valueAsNumber: true})}/>
@@ -95,6 +100,7 @@ export function Purchase() {
                 <S.Input type="text" placeholder="Rio de Janeiro" {...register('city')}/>
                 <S.Input type="text" placeholder="RJ" maxLength={2} {...register('abbreviation')} />
               </div>
+              <span>{errors.abbreviation?.message}</span>
             </S.ContentInputs>
           </S.ContentInfoLocation>
           <S.BoxDefault>
