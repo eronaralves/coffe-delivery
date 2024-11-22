@@ -56,33 +56,34 @@ export function Home() {
 
   async function addInCarList(data: Coffe, quantity: number) {
     try {
-      const shopCart = [...itemsInCar];
-      let coffe = shopCart.find(coffe => coffe.id === data.id);
 
-      if(coffe) {
-        const newQuantity = coffe.quantity + quantity;
-        const newPrice = coffe.currentPrice + (quantity * data.price)
-        
-        coffe.quantity = newQuantity;
-        coffe.price = newPrice
-        
-      } else {
-        const newCoffe = {
-          ...data,
-          currentPrice: data.price * quantity,
-          quantity
+      if(quantity > 0) {
+        const shopCart = [...itemsInCar];
+        let coffe = shopCart.find(coffe => coffe.id === data.id);
+  
+        if(coffe) {
+          const newQuantity = coffe.quantity + quantity;
+          const newPrice = coffe.currentPrice + (quantity * data.price)
+          
+          coffe.quantity = newQuantity;
+          coffe.price = newPrice
+          
+        } else {
+          const newCoffe = {
+            ...data,
+            currentPrice: data.price * quantity,
+            quantity
+          }
+          
+          shopCart.push(newCoffe);
         }
         
-        shopCart.push(newCoffe);
+        localStorage.setItem('coffesIncar', JSON.stringify(shopCart))
+        setItemsInCar(shopCart);
+        toast.success('Item adicionado no seu carrinho.', {
+          autoClose: 2000
+        })
       }
-      
-      localStorage.setItem('coffesIncar', JSON.stringify(shopCart))
-      setItemsInCar(shopCart);
-      toast.success('Item adicionado no seu carrinho.', {
-        autoClose: 2000
-      })
-      
-
     } catch (error: any) {
       console.log("error", error.message);
     }

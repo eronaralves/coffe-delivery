@@ -24,7 +24,7 @@ const formSchema = z.object({
   abbreviation: z.string()
                 .refine((val) => val.length === 2, { message: 'O UF deve ter exatamente 2 caractéres' }),
   district: z.string(),
-  number: z.string(),
+  number: z.coerce.number(),
   complement: z.string(),
   contact: z.string()
           .transform((val) => val.replace(/_/g, ''))
@@ -60,8 +60,6 @@ export function Purchase() {
   })
 
   async function handleCompletOrder(data: FormInputs) { 
-    console.log(data, 'dsa')
-    return
     if(itemsInCar.length > 0) {
       navigate('/purchase/complet', {
         state: data
@@ -92,7 +90,7 @@ export function Purchase() {
               
               <S.Input type="text" placeholder="Rua João Daniel Martinelli" {...register('road')}/>
               <div>
-                <S.Input type="number" placeholder="100" {...register('number', {valueAsNumber: true})}/>
+                <S.Input type="number" placeholder="100" {...register('number')}/>
                 <S.Input type="text" placeholder="Complemento" {...register('complement')}/>
               </div>
               <div>
